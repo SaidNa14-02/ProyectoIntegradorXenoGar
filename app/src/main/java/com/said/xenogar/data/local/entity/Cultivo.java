@@ -98,11 +98,11 @@ public class Cultivo {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    private int getExistencias() {
+    public int getExistencias() {
         return existencias;
     }
 
-    private void setExistencias(int existencias) {
+    public void setExistencias(int existencias) {
         this.existencias = existencias;
     }
 }
