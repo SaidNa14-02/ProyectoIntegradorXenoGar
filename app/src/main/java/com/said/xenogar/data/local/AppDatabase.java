@@ -17,7 +17,6 @@ import com.said.xenogar.data.local.entity.Insumo;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 @Database(entities = {Actividad.class, Insumo.class, ActividadInsumo.class, Cultivo.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ActividadDao actividadDao();
@@ -27,7 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
     private static final int NUMERO_HILOS = 4;
 
-    private static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMERO_HILOS);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMERO_HILOS);
 
     private AppDatabase(){}
 

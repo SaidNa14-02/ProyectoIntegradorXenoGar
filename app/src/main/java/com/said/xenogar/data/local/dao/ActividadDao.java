@@ -2,6 +2,7 @@ package com.said.xenogar.data.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -19,10 +20,10 @@ public interface ActividadDao {
     // --- Operaciones para Actividad ---
 
     @Update
-    void updateActividad(Actividad actividad);
+    void update(Actividad actividad);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertActividad(Actividad actividad);
+    long insert(Actividad actividad);
 
     @Query("SELECT * FROM actividades WHERE cultivoId = :cultivoId ORDER BY fecha DESC")
     LiveData<List<Actividad>> getActividadesByCultivoId(long cultivoId);
@@ -35,9 +36,15 @@ public interface ActividadDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertActividadInsumo(ActividadInsumo relacion);
 
+    @Delete
+    void delete(Actividad actividad);
+
+    @Delete
+    void deleteInsumosActividad(List<ActividadInsumo> relacion);
+
     @Transaction
     default void insertActividadConInsumos(Actividad actividad, List<ActividadInsumo> insumos) {
-        long actividadId = insertActividad(actividad);
+        long actividadId = insert(actividad);
 
         if (insumos != null) {
             for (ActividadInsumo relacion : insumos) {
