@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Usamos un blanco con 80% de opacidad para que se integre con la imagen de fondo -->
+    <solid android:color="#CCFFFFFF" />
+
+</shape>

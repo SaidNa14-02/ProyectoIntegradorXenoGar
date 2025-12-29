@@ -1,6 +1,22 @@
 <resources>
     <string name="app_name">XenoGar</string>
+
+    <!-- Para la lista de cultivos -->
     <string name="cultivo_image_description">Imagen del Cultivo</string>
     <string name="see_details_button">Ver Detalles</string>
     <string name="add_new_cultivo">Agregar Nuevo Cultivo</string>
+
+    <!-- Para los detalles del cultivo -->
+    <string name="existencias_label">Existencias</string>
+    <string name="disminuir_existencias_desc">Disminuir Existencias</string>
+    <string name="aumentar_existencias_desc">Aumentar Existencias</string>
+    <string name="tipo_label">Tipo</string>
+    <string name="fecha_inicio_label">Fecha de Inicio</string>
+    <string name="proxima_cosecha_label">Próxima Cosecha</string>
+    <string name="edit_cultivo_image_desc">Editar Imagen del Cultivo"</string>
+    <string name="progress_circle_label">Progreso hasta la recolección:</string>
+    <string name="cultivo_description_label">Descripción del Cultivo</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

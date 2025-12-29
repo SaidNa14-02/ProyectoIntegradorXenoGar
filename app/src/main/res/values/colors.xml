@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_gray">#CFCECE</color>
     <color name="card_background_verde_pastel">#E8F5E9</color>
+    <color name="capsule_background_color_gris">#B3FFFFFF</color>
+    <color name="gris_claro">#E0E0E0</color>
+    <color name="verde_progress">#5BDC41</color>
 </resources>
