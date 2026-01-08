@@ -40,6 +40,7 @@ public class Insumo {
     private UnidadMedida unidad;
     private double puntoReorden; //
 
+    public Insumo(){}
     private Insumo(String nombre, TipoInsumo tipo, double cantidadActual, UnidadMedida unidad, double puntoReorden){
         this.nombre = nombre;
         this.tipo = tipo;
@@ -88,8 +89,15 @@ public class Insumo {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public TipoInsumo getTipo() { return tipo; }
+    public void setTipo(TipoInsumo tipo) { this.tipo = tipo; }
     public double getCantidadActual() { return cantidadActual; }
     public void setCantidadActual(double cantidadActual) { this.cantidadActual = cantidadActual; }
+    public UnidadMedida getUnidad() { return unidad; }
+    public void setUnidad(UnidadMedida unidad) { this.unidad = unidad; }
+    public double getPuntoReorden() { return puntoReorden; }
+    public void setPuntoReorden(double puntoReorden) { this.puntoReorden = puntoReorden; }
 
     //Converters para insumo
     public static class Converters {

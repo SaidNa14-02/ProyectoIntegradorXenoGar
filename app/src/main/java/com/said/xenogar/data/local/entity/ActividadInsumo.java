@@ -24,22 +24,23 @@ import androidx.room.Index;
                 )
         }
 )
-public class ActividadInsumo{
-    private Long actividadId;
-    private Long insumoId;
+public class ActividadInsumo {
+    private long actividadId;
+    private long insumoId;
     private double cantidadUtilizada;
 
     // --- Constructor, Getters y Setters ---
-    public ActividadInsumo(Long actividadId, Long insumoId, double cantidadUtilizada) {
+    public ActividadInsumo(long actividadId, long insumoId, double cantidadUtilizada) {
         this.actividadId = actividadId;
         this.insumoId = insumoId;
         this.cantidadUtilizada = cantidadUtilizada;
     }
-    public Long getActividadId() { return actividadId; }
-    public void setActividadId(Long actividadId) { this.actividadId = actividadId; }
 
-    public Long getInsumoId() { return insumoId; }
-    public void setInsumoId(Long insumoId) { this.insumoId = insumoId; }
+    public long getActividadId() { return actividadId; }
+    public void setActividadId(long actividadId) { this.actividadId = actividadId; }
+
+    public long getInsumoId() { return insumoId; }
+    public void setInsumoId(long insumoId) { this.insumoId = insumoId; }
 
     public double getCantidadUtilizada() {
         return cantidadUtilizada;
