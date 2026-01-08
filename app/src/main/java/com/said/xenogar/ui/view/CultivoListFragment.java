@@ -1,6 +1,7 @@
 package com.said.xenogar.ui.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.said.xenogar.R;
 import com.said.xenogar.databinding.FragmentCultivoListBinding;
 import com.said.xenogar.ui.adapter.CultivoListAdapter;
 import com.said.xenogar.ui.viewmodel.CultivoListViewModel;
@@ -46,6 +48,13 @@ public class CultivoListFragment extends Fragment {
             if (cultivos != null) {
                 adapter.submitList(cultivos);
             }
+        });
+
+        binding.fabAddCultivo.setOnClickListener(v ->{
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.main, new CultivoFormFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 

@@ -31,4 +31,21 @@ public class CultivoDetailViewModel extends ViewModel {
         repository.deleteCultivo(cultivo);
     }
 
+    public void increaseStock(){
+        Cultivo cultivoActual = cultivo.getValue();
+        if(cultivoActual!=null){
+            int existenciasACambiar = cultivoActual.getExistencias() + 1;
+            cultivoActual.setExistencias(existenciasACambiar);
+        }
+        updateCultivo(cultivoActual);
+    }
+    public void decreaseStock(){
+        Cultivo cultivoActual = cultivo.getValue();
+        if(cultivoActual!=null && cultivoActual.getExistencias()>0){
+            int existenciasACambiar = cultivoActual.getExistencias()-1;
+            cultivoActual.setExistencias(existenciasACambiar);
+            updateCultivo(cultivoActual);
+        }
+    }
+
 }

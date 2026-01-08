@@ -19,4 +19,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Para el formulario de nuevo cultivo -->
+    <string name="cultivo_form_title">Datos para el nuevo cultivo</string>
+    <string name="cultivo_form_name_label">Nombre del cultivo</string>
+    <string name="cultivo_form_tipo_label">Tipo de cultivo</string>
+    <string name="cultivo_form_fecha_inicio_label">Fecha de inicio del cultivo</string>
+    <string name="cultivo_form_fecha_fin_label">Fecha estimada de finalización</string>
+    <string name="cultivo_form_existencias_label">Existencias disponibles</string>
+    <string name="cultivo_form_descripcion_label">Notas del cultivo</string>
+    <string name="cultivo_name_hint">Ingrese el nombre del cultivo</string>
+
 </resources>

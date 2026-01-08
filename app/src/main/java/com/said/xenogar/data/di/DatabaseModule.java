@@ -32,7 +32,6 @@ public class DatabaseModule {
                 .fallbackToDestructiveMigration()
                 .build();
     }
-
     @Provides
     @Singleton
     public ExecutorService provideDatabaseWriteExecutor() {

@@ -80,11 +80,11 @@ public class CultivoDetailFragment extends Fragment {
 
     private void initListeners() {
         binding.imageButtonAumentarExistencias.setOnClickListener(v -> {
-            // viewModel.onIncreaseStock();
+            viewModel.increaseStock();
         });
 
         binding.imageButtonDisminuirExistencias.setOnClickListener(v -> {
-            // viewModel.onDecreaseStock();
+            viewModel.decreaseStock();
         });
 
         binding.imageButtonEditCultivoImage.setOnClickListener(v -> {
