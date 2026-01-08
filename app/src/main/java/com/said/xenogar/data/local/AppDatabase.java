@@ -12,7 +12,7 @@ import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.data.local.entity.Insumo;
 
 
-@Database(entities = {Cultivo.class, Actividad.class, Insumo.class, ActividadInsumo.class}, version = 1)
+@Database(entities = {Cultivo.class, Actividad.class, Insumo.class, ActividadInsumo.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public AppDatabase() {}
