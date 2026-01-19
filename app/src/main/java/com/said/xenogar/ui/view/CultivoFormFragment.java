@@ -1,19 +1,40 @@
 package com.said.xenogar.ui.view;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.databinding.FragmentCultivoFormBinding;
+import com.said.xenogar.ui.viewmodel.CultivoFormViewModel;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CultivoFormFragment extends Fragment {
 
     private FragmentCultivoFormBinding binding;
+    private CultivoFormViewModel viewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(CultivoFormViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -22,12 +43,12 @@ public class CultivoFormFragment extends Fragment {
         return binding.getRoot();
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupTipoCultivoDropdown();
         initListeners();
-
+        initObservers();
     }
 
     @Override
@@ -36,7 +57,72 @@ public class CultivoFormFragment extends Fragment {
         binding = null;
     }
 
-    private void initListeners(){
+    private void setupTipoCultivoDropdown() {
+        ArrayAdapter<Cultivo.TipoCultivo> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                Cultivo.TipoCultivo.values()
+        );
+        binding.autocompleteTipoCultivo.setAdapter(adapter);
+    }
 
+    private void initListeners() {
+        binding.submitCultivoButton.setOnClickListener(v -> viewModel.guardarCultivo());
+
+        binding.inputCultivoName.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { viewModel.nombre.setValue(s.toString()); }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        binding.autocompleteTipoCultivo.setOnItemClickListener((parent, view, position, id) -> {
+            Object item = parent.getItemAtPosition(position);
+            if (item instanceof Cultivo.TipoCultivo) {
+                viewModel.tipo.setValue(((Cultivo.TipoCultivo) item).name());
+            }
+        });
+
+        binding.inputCultivoDate.setOnClickListener(v -> {
+            MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                    .setTitleText("Seleccionar fecha")
+                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build();
+
+            datePicker.addOnPositiveButtonClickListener(selection -> {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                String formattedDate = sdf.format(new Date(selection));
+                binding.inputCultivoDate.setText(formattedDate);
+                viewModel.fecha.setValue(formattedDate);
+            });
+
+            datePicker.show(getParentFragmentManager(), "DATE_PICKER");
+        });
+
+        binding.inputCultivoExistencias.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { viewModel.existencias.setValue(s.toString()); }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        binding.inputCultivoDescripcion.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) { viewModel.descripcion.setValue(s.toString()); }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void initObservers() {
+        viewModel.getNombreError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoName.setError(error));
+        viewModel.getTipoError().observe(getViewLifecycleOwner(), error -> binding.menuTipoCultivo.setError(error));
+        viewModel.getFechaError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDate.setError(error));
+        viewModel.getExistenciasError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoExistencias.setError(error));
+        viewModel.getDescripcionError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDescripcion.setError(error));
+
+        viewModel.getNavegarAtras().observe(getViewLifecycleOwner(), navegar -> {
+            if (navegar != null && navegar) {
+                 getParentFragmentManager().popBackStack();
+                viewModel.onNavegacionCompleta();
+            }
+        });
     }
 }

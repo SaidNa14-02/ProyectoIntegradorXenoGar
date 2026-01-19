@@ -1,58 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/form_gradient">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cultivo_form_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="25dp"
+        android:background="@color/white"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginHorizontal="25dp"
-        app:cardCornerRadius="15dp"
-        android:background="@color/white">
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            android:layout_marginStart="10dp"
             android:layout_marginVertical="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:textStyle="bold"
-                android:textSize="30sp"
-                android:text="@string/cultivo_form_title"
                 android:gravity="start"
                 android:layout_marginTop="5dp"
-                />
+                android:text="@string/cultivo_form_title"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <!-- Nombre Cultivo -->
             <TextView
                 android:id="@+id/cultivo_name_form_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="20sp"
+                android:layout_marginTop="10dp"
                 android:text="@string/cultivo_form_name_label"
-                android:layout_marginTop="5dp"
-                />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/input_cultivo_name"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/box_shadow"
                 android:layout_marginTop="5dp"
-                android:layout_marginHorizontal="10dp"
-                android:gravity="center"
+                android:autofillHints="name"
+                android:background="@drawable/box_shadow"
                 android:fontFamily="@font/poppins"
-                android:hint="Ingrese el nombre del cultivo"
-                />
+                android:gravity="center"
+                android:hint="@string/cultivo_name_hint"
+                android:inputType="text" />
+
+            <!-- Tipo Cultivo -->
+            <TextView
+                android:id="@+id/cultivo_type_form_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/cultivo_form_tipo_label"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menu_tipo_cultivo"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                app:boxBackgroundColor="@android:color/transparent"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autocomplete_tipo_cultivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/box_shadow"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:hint="@string/tipo_cultivo_hint"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Fecha de Inicio -->
+            <TextView
+                android:id="@+id/cultivo_date_form_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/fecha_de_inicio_cultivo_form_label"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_cultivo_date"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/box_shadow"
+                android:clickable="true"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="@string/cultivo_form_date_hint"
+                android:inputType="date" />
+
+            <!-- Existencias -->
+            <TextView
+                android:id="@+id/form_cultivo_existencias_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/existencias_iniciales_cultivo_form_label"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_cultivo_existencias"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/box_shadow"
+                android:gravity="center"
+                android:hint="@string/cultivo_form_existencias_hint"
+                android:inputType="number" />
+
+            <!-- Descripcion -->
+            <TextView
+                android:id="@+id/cultivo_form_descripcion_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/descripcion_label_form"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/input_cultivo_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/box_shadow"
+                android:gravity="start"
+                android:hint="@string/hint_descripcion_cultivo_form"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:padding="8dp"/>
+
+            <!-- Boton Guardar -->
+            <Button
+                android:id="@+id/submit_cultivo_button"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/box_shadow"
+                android:fontFamily="@font/poppins"
+                android:paddingHorizontal="24dp"
+                android:text="@string/cultivo_form_submitbutton_text"
+                android:textStyle="bold" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

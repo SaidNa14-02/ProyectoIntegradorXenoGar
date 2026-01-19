@@ -1,7 +1,6 @@
 package com.said.xenogar.ui.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class CultivoListFragment extends Fragment {
             }
         });
 
-        binding.fabAddCultivo.setOnClickListener(v ->{
+        binding.fabAddCultivo.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.main, new CultivoFormFragment())
                     .addToBackStack(null)
