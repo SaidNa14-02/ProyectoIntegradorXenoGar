@@ -1,28 +1,25 @@
 package com.said.xenogar;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import com.said.xenogar.databinding.ActivityMainBinding;
 import com.said.xenogar.ui.view.CultivoListFragment;
+import com.said.xenogar.ui.view.HomeFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        if(savedInstanceState == null) {
+        if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main, new CultivoListFragment())
+                    .setReorderingAllowed(true)
+                    .add(R.id.main, new HomeFragment())
                     .commit();
         }
     }

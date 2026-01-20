@@ -27,7 +27,7 @@
     <string name="cultivo_form_fecha_fin_label">Fecha estimada de finalización</string>
     <string name="cultivo_form_existencias_label">Existencias disponibles</string>
     <string name="cultivo_form_descripcion_label">Notas del cultivo</string>
-    <string name="cultivo_name_hint">Ingrese el nombre del cultivo</string>
+    <string name="cultivo_name_hint">Nombre del cultivo</string>
     <string name="tipo_cultivo_hint">Seleccione el tipo de cultivo</string>
     <string name="fecha_de_inicio_cultivo_form_label">Fecha de inicio</string>
     <string name="cultivo_form_date_hint">dd/mm/aaaa</string>

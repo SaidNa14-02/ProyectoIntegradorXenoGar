@@ -113,7 +113,7 @@ public class CultivoFormFragment extends Fragment {
 
     private void initObservers() {
         viewModel.getNombreError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoName.setError(error));
-        viewModel.getTipoError().observe(getViewLifecycleOwner(), error -> binding.menuTipoCultivo.setError(error));
+        viewModel.getTipoError().observe(getViewLifecycleOwner(), error -> binding.autocompleteTipoCultivo.setError(error));
         viewModel.getFechaError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDate.setError(error));
         viewModel.getExistenciasError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoExistencias.setError(error));
         viewModel.getDescripcionError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDescripcion.setError(error));
