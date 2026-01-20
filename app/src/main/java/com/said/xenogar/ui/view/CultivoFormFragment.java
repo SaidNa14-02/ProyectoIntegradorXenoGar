@@ -112,11 +112,11 @@ public class CultivoFormFragment extends Fragment {
     }
 
     private void initObservers() {
-        viewModel.getNombreError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoName.setError(error));
-        viewModel.getTipoError().observe(getViewLifecycleOwner(), error -> binding.autocompleteTipoCultivo.setError(error));
-        viewModel.getFechaError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDate.setError(error));
-        viewModel.getExistenciasError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoExistencias.setError(error));
-        viewModel.getDescripcionError().observe(getViewLifecycleOwner(), error -> binding.inputCultivoDescripcion.setError(error));
+        viewModel.getNombreError().observe(getViewLifecycleOwner(), error -> binding.layoutInputName.setHelperText(error));
+        viewModel.getTipoError().observe(getViewLifecycleOwner(), error -> binding.layoutTipoCultivo.setHelperText(error));
+        viewModel.getFechaError().observe(getViewLifecycleOwner(), error -> binding.layoutInputDate.setHelperText(error));
+        viewModel.getExistenciasError().observe(getViewLifecycleOwner(), error -> binding.layoutInputExistencias.setHelperText(error));
+        viewModel.getDescripcionError().observe(getViewLifecycleOwner(), error -> binding.layoutInputDescripcion.setHelperText(error));
 
         viewModel.getNavegarAtras().observe(getViewLifecycleOwner(), navegar -> {
             if (navegar != null && navegar) {

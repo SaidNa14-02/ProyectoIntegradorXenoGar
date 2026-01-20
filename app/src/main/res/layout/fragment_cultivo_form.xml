@@ -41,10 +41,11 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
                         android:text="@string/cultivo_form_title"
+                        android:textColor="@color/black"
                         android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black" />
+                        android:textStyle="bold" />
 
+                    <!-- CAMPO: NOMBRE -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -58,26 +59,29 @@
                         android:id="@+id/layout_input_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        app:errorEnabled="true"
-                        app:boxBackgroundMode="none">
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
+
                         <EditText
                             android:id="@+id/input_cultivo_name"
                             android:layout_width="match_parent"
-                            android:minHeight="48dp"
-                            android:paddingBottom="10dp"
-                            android:gravity="center_vertical"
                             android:layout_height="48dp"
                             android:layout_marginTop="4dp"
+                            android:paddingTop="8dp"
                             android:background="@drawable/box_shadow"
                             android:fontFamily="@font/poppins"
+                            android:gravity="center_vertical"
                             android:hint="@string/cultivo_name_hint"
                             android:inputType="text"
+                            android:minHeight="48dp"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- CAMPO: TIPO -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -90,9 +94,10 @@
                         android:id="@+id/layout_tipo_cultivo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        app:errorEnabled="true"
-                        app:boxBackgroundMode="none">
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
 
                         <AutoCompleteTextView
                             android:id="@+id/autocomplete_tipo_cultivo"
@@ -100,17 +105,18 @@
                             android:layout_height="48dp"
                             android:layout_marginTop="4dp"
                             android:background="@drawable/box_shadow"
+                            android:ellipsize="end"
                             android:fontFamily="@font/poppins"
                             android:hint="@string/tipo_cultivo_hint"
                             android:inputType="none"
-                            android:ellipsize="end"
-                            android:paddingTop="4dp"
                             android:paddingStart="16dp"
+                            android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:singleLine="true"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- CAMPO: FECHA -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -123,9 +129,10 @@
                         android:id="@+id/layout_input_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        app:errorEnabled="true"
-                        app:boxBackgroundMode="none">
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
 
                         <EditText
                             android:id="@+id/input_cultivo_date"
@@ -137,12 +144,12 @@
                             android:focusable="false"
                             android:hint="@string/cultivo_form_date_hint"
                             android:inputType="date"
-                            android:paddingTop="4dp"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- CAMPO: EXISTENCIAS -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -155,9 +162,10 @@
                         android:id="@+id/layout_input_existencias"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        app:errorEnabled="true"
-                        app:boxBackgroundMode="none">
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
 
                         <EditText
                             android:id="@+id/input_cultivo_existencias"
@@ -167,12 +175,12 @@
                             android:background="@drawable/box_shadow"
                             android:hint="@string/cultivo_form_existencias_hint"
                             android:inputType="number"
-                            android:paddingTop="4dp"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- CAMPO: DESCRIPCIÓN -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -185,9 +193,10 @@
                         android:id="@+id/layout_input_descripcion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintEnabled="false"
-                        app:errorEnabled="true"
-                        app:boxBackgroundMode="none">
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
 
                         <EditText
                             android:id="@+id/input_cultivo_descripcion"
@@ -208,9 +217,9 @@
                         android:id="@+id/submit_cultivo_button"
                         android:layout_width="wrap_content"
                         android:layout_height="52dp"
-                        android:background="@drawable/box_shadow"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
+                        android:background="@drawable/box_shadow"
                         android:fontFamily="@font/poppins"
                         android:paddingHorizontal="32dp"
                         android:text="@string/cultivo_form_submitbutton_text"
