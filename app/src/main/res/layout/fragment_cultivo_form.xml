@@ -149,6 +149,33 @@
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <!-- CAMPO: FECHA FIN OPCIONAL-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:text="@string/fecha_form_end_date_label"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_input_date_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundMode="none"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextColor="#D32F2F"
+                        app:hintEnabled="false">
+                        <EditText
+                            android:id="@+id/input_cultivo_date_end"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/box_shadow"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:hint="@string/end_date_hint_optional"
+                            android:inputType="date"/>
+                    </com.google.android.material.textfield.TextInputLayout>
                     <!-- CAMPO: EXISTENCIAS -->
                     <TextView
                         android:layout_width="wrap_content"

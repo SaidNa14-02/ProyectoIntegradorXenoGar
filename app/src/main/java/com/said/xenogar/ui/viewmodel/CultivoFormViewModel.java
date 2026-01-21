@@ -22,6 +22,8 @@ public class CultivoFormViewModel extends ViewModel {
     public final MutableLiveData<String> fecha = new MutableLiveData<>();
     public final MutableLiveData<String> existencias = new MutableLiveData<>();
     public final MutableLiveData<String> descripcion = new MutableLiveData<>();
+    public final MutableLiveData<String> fechaFin = new MutableLiveData<>();
+    public final MutableLiveData<String> fechaFinError = new MutableLiveData<>();
     private final AgroRepository repository;
     private final MutableLiveData<String> nombreError = new MutableLiveData<>();
     private final MutableLiveData<String> tipoError = new MutableLiveData<>();
@@ -55,10 +57,11 @@ public class CultivoFormViewModel extends ViewModel {
     public LiveData<String> getDescripcionError() {
         return descripcionError;
     }
-
+    public LiveData<String> getFechaFinError() { return fechaFinError;}
     public MutableLiveData<Boolean> getNavegarAtras() {
         return navegarAtras;
     }
+
 
     private boolean esFormularioValido() {
         boolean nombreValido = validarNombre();
@@ -66,7 +69,8 @@ public class CultivoFormViewModel extends ViewModel {
         boolean fechaValida = validarFecha();
         boolean existenciasValidas = validarExistencias();
         boolean descripcionValida = validarDescripcion();
-        return nombreValido & tipoValido & fechaValida & existenciasValidas & descripcionValida;
+        boolean fechaFinValida = validarFechaFin();
+        return nombreValido & tipoValido & fechaValida & existenciasValidas & descripcionValida & fechaFinValida;
     }
 
     public void guardarCultivo() {
@@ -84,6 +88,12 @@ public class CultivoFormViewModel extends ViewModel {
         LocalDate localDate = LocalDate.parse(fecha.getValue(), formatter);
         long fechaParaDb = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
         nuevoCultivo.setFechaInicio(fechaParaDb);
+
+        if (fechaFin.getValue() != null && !fechaFin.getValue().trim().isEmpty()) {
+            LocalDate localDateFin = LocalDate.parse(fechaFin.getValue(), formatter);
+            long fechaFinParaDb = localDateFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            nuevoCultivo.setFechaFinalizacion(fechaFinParaDb);
+        }
 
         if (descripcion.getValue() != null) {
             nuevoCultivo.setDescripcion(descripcion.getValue().trim());
@@ -141,6 +151,35 @@ public class CultivoFormViewModel extends ViewModel {
             return false;
         }
     }
+
+    private boolean validarFechaFin() {
+        if (fechaFin.getValue() != null && !fechaFin.getValue().trim().isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            try {
+                LocalDate fechaSeleccionada = LocalDate.parse(fechaFin.getValue(), formatter);
+
+                if (fecha.getValue() == null || fecha.getValue().trim().isEmpty()) {
+                    fechaFinError.setValue("La fecha de inicio es necesaria");
+                    return false;
+                }
+                LocalDate fechaInicio = LocalDate.parse(fecha.getValue(), formatter);
+
+                if (fechaSeleccionada.isBefore(fechaInicio)) {
+                    fechaFinError.setValue("La fecha de fin debe ser posterior a la fecha de inicio");
+                    return false;
+                }
+                fechaFinError.setValue(null);
+                return true;
+            } catch (Exception e) {
+                fechaFinError.setValue("El formato de fecha es incorrecto (dd/MM/yyyy)");
+                return false;
+            }
+        } else {
+            fechaFinError.setValue(null);
+            return true;
+        }
+    }
+
 
     private boolean validarExistencias() {
         String existenciasStr = existencias.getValue();

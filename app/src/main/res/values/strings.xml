@@ -30,13 +30,15 @@
     <string name="cultivo_name_hint">Nombre del cultivo</string>
     <string name="tipo_cultivo_hint">Seleccione el tipo de cultivo</string>
     <string name="fecha_de_inicio_cultivo_form_label">Fecha de inicio</string>
-    <string name="cultivo_form_date_hint">dd/mm/aaaa</string>
+    <string name="cultivo_form_date_hint"> dd/mm/aaaa</string>
     <string name="descripcion_label_form">Descripción del cultivo</string>
     <string name="existencias_iniciales_cultivo_form_label">Existencias iniciales</string>
     <string name="cultivo_form_existencias_hint">Ej: 100</string>
     <string name="cultivo_form_hint_existencias">Ej: Sembrio para venta</string>
     <string name="cultivo_form_submitbutton_text">Enviar</string>
-    <string name="hint_descripcion_cultivo_form">Ej: Siembra para venta</string>
+    <string name="hint_descripcion_cultivo_form">Ej: Siembra para venta (Opcional)</string>
     <string name="editar_cultivo_button_label">Editar Cultivo</string>
+    <string name="fecha_form_end_date_label">Fecha estimada de finalización</string>
+    <string name="end_date_hint_optional"> dd/mm/yyyy (opcional)</string>
 
 </resources>
