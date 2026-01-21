@@ -97,6 +97,23 @@ public class CultivoDetailFragment extends Fragment {
         binding.imageButtonEditCultivoImage.setOnClickListener(v -> {
             // viewModel.onEditImage();
         });
+
+        binding.editCultivoButton.setOnClickListener(v -> {
+            if (viewModel.getDetalleCultivo().getValue() != null) {
+                Long cultivoId = viewModel.getDetalleCultivo().getValue().getId();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.main, CultivoFormFragment.newInstance(cultivoId))
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        binding.deleteCultivoButton.setOnClickListener(v -> {
+            if(viewModel.getDetalleCultivo().getValue() != null) {
+                viewModel.deleteCultivo(viewModel.getDetalleCultivo().getValue());
+                getParentFragmentManager().popBackStack();
+            }
+        });
     }
 
     private String formatDate(long timeInMillis) {

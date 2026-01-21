@@ -36,7 +36,10 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- CAMPO: NOMBRE -->
+
                     <TextView
+                        android:id="@+id/form_header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
@@ -45,7 +48,6 @@
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <!-- CAMPO: NOMBRE -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -69,7 +71,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
                             android:layout_marginTop="4dp"
-                            android:paddingTop="8dp"
                             android:background="@drawable/box_shadow"
                             android:fontFamily="@font/poppins"
                             android:gravity="center_vertical"
@@ -77,6 +78,7 @@
                             android:inputType="text"
                             android:minHeight="48dp"
                             android:paddingStart="16dp"
+                            android:paddingTop="8dp"
                             android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -169,10 +171,12 @@
                             android:id="@+id/input_cultivo_date_end"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
+                            android:textSize="14sp"
                             android:layout_marginTop="4dp"
+                            android:paddingTop="8dp"
                             android:background="@drawable/box_shadow"
                             android:clickable="true"
-                            android:focusable="true"
+                            android:focusable="false"
                             android:hint="@string/end_date_hint_optional"
                             android:inputType="date"/>
                     </com.google.android.material.textfield.TextInputLayout>

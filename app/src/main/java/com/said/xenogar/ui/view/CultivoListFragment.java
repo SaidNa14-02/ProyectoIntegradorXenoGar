@@ -53,7 +53,7 @@ public class CultivoListFragment extends Fragment implements CultivoListAdapter.
 
         binding.fabAddCultivo.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main, new CultivoFormFragment())
+                    .replace(R.id.main, CultivoFormFragment.newInstance(null))
                     .addToBackStack(null)
                     .commit();
         });

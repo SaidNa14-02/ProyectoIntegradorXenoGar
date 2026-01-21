@@ -9,4 +9,5 @@
     <color name="verde_progress">#5BDC41</color>
     <color name="gradiente_form_inicio">#7EF29D</color>
     <color name="gradiente_form_final">#0F68A9</color>
+    <color name="button_red_color">#d62828</color>
 </resources>

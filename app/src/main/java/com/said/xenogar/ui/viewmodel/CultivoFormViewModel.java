@@ -2,11 +2,13 @@ package com.said.xenogar.ui.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.data.repository.AgroRepository;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +26,7 @@ public class CultivoFormViewModel extends ViewModel {
     public final MutableLiveData<String> descripcion = new MutableLiveData<>();
     public final MutableLiveData<String> fechaFin = new MutableLiveData<>();
     public final MutableLiveData<String> fechaFinError = new MutableLiveData<>();
+    
     private final AgroRepository repository;
     private final MutableLiveData<String> nombreError = new MutableLiveData<>();
     private final MutableLiveData<String> tipoError = new MutableLiveData<>();
@@ -32,10 +35,48 @@ public class CultivoFormViewModel extends ViewModel {
     private final MutableLiveData<String> descripcionError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> navegarAtras = new MutableLiveData<>();
 
+    private Long cultivoId = null;
+    private Cultivo cultivoExistente;
+
+    private LiveData<Cultivo> cultivoLiveData;
+    private final Observer<Cultivo> cultivoObserver;
 
     @Inject
     public CultivoFormViewModel(AgroRepository repository) {
         this.repository = repository;
+        this.cultivoObserver = cultivo -> {
+            if (cultivo != null) {
+                this.cultivoExistente = cultivo;
+                nombre.setValue(cultivo.getNombre());
+                tipo.setValue(cultivo.getTipo().name());
+                existencias.setValue(String.valueOf(cultivo.getExistencias()));
+                descripcion.setValue(cultivo.getDescripcion());
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                fecha.setValue(Instant.ofEpochMilli(cultivo.getFechaInicio()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
+                
+                if (cultivo.getFechaFinalizacion() > 0) {
+                    fechaFin.setValue(Instant.ofEpochMilli(cultivo.getFechaFinalizacion()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
+                }
+            }
+        };
+    }
+
+    public void cargarCultivo(long id) {
+        this.cultivoId = id;
+        if (cultivoLiveData != null) {
+            cultivoLiveData.removeObserver(cultivoObserver);
+        }
+        cultivoLiveData = repository.getCultivo(id);
+        cultivoLiveData.observeForever(cultivoObserver);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (cultivoLiveData != null) {
+            cultivoLiveData.removeObserver(cultivoObserver);
+        }
     }
 
     public LiveData<String> getNombreError() {
@@ -78,29 +119,36 @@ public class CultivoFormViewModel extends ViewModel {
             return;
         }
 
-        Cultivo nuevoCultivo = new Cultivo();
-        nuevoCultivo.setNombre(nombre.getValue().trim());
-        nuevoCultivo.setTipo(Cultivo.TipoCultivo.valueOf(tipo.getValue()));
-        nuevoCultivo.setExistencias(Integer.parseInt(existencias.getValue().trim()));
-
+        Cultivo cultivo = (cultivoId == null) ? new Cultivo() : cultivoExistente;
+        
+        cultivo.setNombre(nombre.getValue().trim());
+        cultivo.setTipo(Cultivo.TipoCultivo.valueOf(tipo.getValue()));
+        cultivo.setExistencias(Integer.parseInt(existencias.getValue().trim()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.parse(fecha.getValue(), formatter);
         long fechaParaDb = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-        nuevoCultivo.setFechaInicio(fechaParaDb);
+        cultivo.setFechaInicio(fechaParaDb);
 
         if (fechaFin.getValue() != null && !fechaFin.getValue().trim().isEmpty()) {
             LocalDate localDateFin = LocalDate.parse(fechaFin.getValue(), formatter);
             long fechaFinParaDb = localDateFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-            nuevoCultivo.setFechaFinalizacion(fechaFinParaDb);
+            cultivo.setFechaFinalizacion(fechaFinParaDb);
+        } else {
+            cultivo.setFechaFinalizacion(0);
         }
 
         if (descripcion.getValue() != null) {
-            nuevoCultivo.setDescripcion(descripcion.getValue().trim());
+            cultivo.setDescripcion(descripcion.getValue().trim());
         }
-        repository.insertCultivo(nuevoCultivo);
-        navegarAtras.setValue(true);
 
+        if (cultivoId == null) {
+            repository.insertCultivo(cultivo);
+        } else {
+            repository.updateCultivo(cultivo);
+        }
+        
+        navegarAtras.setValue(true);
     }
 
     private boolean validarNombre() {

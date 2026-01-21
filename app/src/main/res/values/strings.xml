@@ -40,5 +40,6 @@
     <string name="editar_cultivo_button_label">Editar Cultivo</string>
     <string name="fecha_form_end_date_label">Fecha estimada de finalización</string>
     <string name="end_date_hint_optional"> dd/mm/yyyy (opcional)</string>
+    <string name="eliminar_cultivo_button_label">Eliminar Cultivo</string>
 
 </resources>
