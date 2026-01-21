@@ -93,8 +93,8 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/layout_tipo_cultivo"
                         android:layout_width="match_parent"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundMode="none"
                         app:helperTextEnabled="true"
                         app:helperTextTextColor="#D32F2F"
                         app:hintEnabled="false">
