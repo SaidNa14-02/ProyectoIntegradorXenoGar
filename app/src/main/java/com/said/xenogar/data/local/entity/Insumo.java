@@ -21,10 +21,10 @@ public class Insumo {
     }
 
     public enum UnidadMedida {
-        LITROS("L"),
-        KILOGRAMOS("Kg"),
-        UNIDADES("Ud"),
-        GRAMOS("g"),
+        LITROS("Litros: L"),
+        KILOGRAMOS("Kilogramos: Kg"),
+        UNIDADES("Unidades: Ud"),
+        GRAMOS("Gramos: g"),
         SACOS("Sacos");
 
         private final String displayName;

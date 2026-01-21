@@ -30,6 +30,13 @@ public class HomeFragment extends Fragment {
                     .addToBackStack(null)
                     .commit();
         });
+
+        binding.goToInsumosButton.setOnClickListener(v->{
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.main, new InsumoListFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
     }
 
     @Nullable
