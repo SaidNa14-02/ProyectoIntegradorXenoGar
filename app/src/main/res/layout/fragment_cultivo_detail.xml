@@ -32,7 +32,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                    app:srcCompat="@drawable/cultivo_detail_view_banner"/>
 
                 <TextView
                     android:id="@+id/textViewDetailCultivo"
@@ -283,17 +283,19 @@
         </GridLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_descripción_cultivo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="16dp"
             app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/headerCard"
             app:layout_constraintStart_toStartOf="@id/headerCard"
             app:layout_constraintTop_toBottomOf="@id/attributesGrid">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -319,6 +321,19 @@
                     tools:text="Aquí va la descripción del cultivo." />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <Button
+            android:id="@+id/edit_cultivo_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_descripción_cultivo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/poppins"
+            android:text="@string/editar_cultivo_button_label"
+            android:background="@drawable/box_shadow"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

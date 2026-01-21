@@ -59,7 +59,7 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
             super(binding.getRoot());
             this.binding = binding;
 
-            binding.getRoot().setOnClickListener(v -> {
+            binding.imageButtonCultivo.setOnClickListener(v -> {
                 int position = getAdapterPosition();
                 if(listener !=null && position !=RecyclerView.NO_POSITION){
                     listener.onItemClickCultivo(getItem(position));

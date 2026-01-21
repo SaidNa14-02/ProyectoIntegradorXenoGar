@@ -60,7 +60,13 @@ public class CultivoDetailFragment extends Fragment {
                 binding.textViewExistenciasCultivo.setText(String.valueOf(cultivo.getExistencias()));
                 binding.tipoValue.setText(cultivo.getTipo().toString());
                 binding.fechaInicioValue.setText(formatDate(cultivo.getFechaInicio()));
-                binding.proxCosechaValue.setText(formatDate(cultivo.getFechaFinalizacion()));
+
+                if (cultivo.getFechaFinalizacion() > 0) {
+                    binding.proxCosechaValue.setText(formatDate(cultivo.getFechaFinalizacion()));
+                } else {
+                    binding.proxCosechaValue.setText("No definida");
+                }
+
                 binding.textViewCultivoDescription.setText(cultivo.getDescripcion());
 
                 // Actualizar barra de progreso y porcentaje
