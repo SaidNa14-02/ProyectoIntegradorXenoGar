@@ -2,6 +2,7 @@ package com.said.xenogar.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -16,6 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.CultivoViewHolder> {
+    private OnItemClickListener listener;
 
     public CultivoListAdapter() {
         super(DIFF_CALLBACK);
@@ -50,12 +52,19 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
         holder.bind(currentCultivo);
     }
 
-    public static class CultivoViewHolder extends RecyclerView.ViewHolder {
+    public class CultivoViewHolder extends RecyclerView.ViewHolder {
         private final ItemCultivoBinding binding;
 
         public CultivoViewHolder(ItemCultivoBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.getRoot().setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if(listener !=null && position !=RecyclerView.NO_POSITION){
+                    listener.onItemClickCultivo(getItem(position));
+                }
+            });
         }
 
         public void bind(Cultivo cultivo) {
@@ -69,5 +78,13 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
             Date fecha = new Date(cultivo.getFechaInicio());
             binding.textViewFechaInicioCultivo.setText(sdf.format(fecha));
         }
+    }
+
+    public interface  OnItemClickListener{
+        void onItemClickCultivo(Cultivo cultivo);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
     }
 }

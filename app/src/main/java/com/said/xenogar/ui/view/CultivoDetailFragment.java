@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CultivoDetailFragment extends Fragment {
+    public static final String ARG_CUlTIVO_ID = "cultivoId";
     private CultivoDetailViewModel viewModel;
     private FragmentCultivoDetailBinding binding;
 
@@ -95,5 +96,13 @@ public class CultivoDetailFragment extends Fragment {
     private String formatDate(long timeInMillis) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
         return sdf.format(new Date(timeInMillis));
+    }
+
+    public static CultivoDetailFragment newInstance(Long cultivoId){
+        CultivoDetailFragment fragment = new CultivoDetailFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_CUlTIVO_ID, cultivoId);
+        fragment.setArguments(args);
+        return fragment;
     }
 }

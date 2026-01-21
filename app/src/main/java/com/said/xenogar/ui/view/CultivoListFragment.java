@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.said.xenogar.R;
+import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.databinding.FragmentCultivoListBinding;
 import com.said.xenogar.ui.adapter.CultivoListAdapter;
 import com.said.xenogar.ui.viewmodel.CultivoListViewModel;
@@ -19,7 +20,7 @@ import com.said.xenogar.ui.viewmodel.CultivoListViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CultivoListFragment extends Fragment {
+public class CultivoListFragment extends Fragment implements CultivoListAdapter.OnItemClickListener {
 
     private CultivoListViewModel viewModel;
     private FragmentCultivoListBinding binding;
@@ -43,6 +44,7 @@ public class CultivoListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         setupRecyclerView();
+        adapter.setOnItemClickListener(this);
         viewModel.getListaCultivos().observe(getViewLifecycleOwner(), cultivos -> {
             if (cultivos != null) {
                 adapter.submitList(cultivos);
@@ -67,5 +69,13 @@ public class CultivoListFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onItemClickCultivo(Cultivo cultivo) {
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.main, CultivoDetailFragment.newInstance(cultivo.getId()))
+                .addToBackStack(null)
+                .commit();
     }
 }
