@@ -39,15 +39,16 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_home_cultivos"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_marginVertical="15dp"
-                android:layout_marginStart="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginVertical="30dp"
+                android:layout_marginStart="16dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:layout_constraintVertical_bias="0.466"
+                app:srcCompat="@drawable/farmer_home_icon" />
 
             <TextView
                 android:layout_width="0dp"
@@ -56,6 +57,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Mis Cultivos"
                 android:textSize="25sp"
+                android:gravity="center"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_view_home_cultivos"
@@ -95,15 +97,15 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/image_view_home_insumos"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:layout_marginVertical="15dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginVertical="30dp"
                 android:layout_marginStart="15dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+                app:srcCompat="@drawable/farmer2_home_icon" />
 
             <TextView
                 android:layout_width="0dp"
@@ -112,6 +114,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Mis insumos"
                 android:textSize="25sp"
+                android:gravity="center"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_view_home_insumos"

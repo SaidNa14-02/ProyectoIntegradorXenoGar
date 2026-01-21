@@ -60,6 +60,7 @@
                         android:id="@+id/layout_input_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:boxBackgroundMode="none"
                         app:helperTextEnabled="true"
                         app:helperTextTextColor="#D32F2F"
                         app:hintEnabled="false">
@@ -68,10 +69,8 @@
                             android:id="@+id/input_insumo_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:paddingTop="8dp"
+                            android:background="@drawable/box_shadow"
                             android:fontFamily="@font/poppins"
-                            android:gravity="center_vertical"
                             android:hint="Nombre del insumo"
                             android:inputType="text"
                             android:minHeight="48dp"
@@ -102,13 +101,11 @@
                             android:id="@+id/autocomplete_tipo_insumo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/poppins"
                             android:hint="Seleccione el tipo de insumo"
                             android:inputType="none"
                             android:paddingStart="16dp"
-                            android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:singleLine="true"
                             android:textSize="14sp" />
@@ -127,6 +124,7 @@
                         android:id="@+id/layout_input_cantidad_actual"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:boxBackgroundMode="none"
                         app:helperTextEnabled="true"
                         app:helperTextTextColor="#D32F2F"
                         app:hintEnabled="false">
@@ -135,11 +133,9 @@
                             android:id="@+id/input_insumo_cantidad_actual"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:background="@drawable/box_shadow"
                             android:hint="Ej: 100.5"
                             android:inputType="numberDecimal"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,13 +161,11 @@
                             android:id="@+id/autocomplete_unidad_medida"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
                             android:ellipsize="end"
                             android:fontFamily="@font/poppins"
                             android:hint="Seleccione la unidad"
                             android:inputType="none"
                             android:paddingStart="16dp"
-                            android:paddingTop="4dp"
                             android:paddingEnd="16dp"
                             android:singleLine="true"
                             android:textSize="14sp" />
@@ -190,6 +184,7 @@
                         android:id="@+id/layout_input_punto_reorden"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:boxBackgroundMode="none"
                         app:helperTextEnabled="true"
                         app:helperTextTextColor="#D32F2F"
                         app:hintEnabled="false">
@@ -198,11 +193,9 @@
                             android:id="@+id/input_insumo_punto_reorden"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:background="@drawable/box_shadow"
                             android:hint="Cantidad mínima antes de reabastecer"
                             android:inputType="numberDecimal"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
