@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.said.xenogar.R;
 import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.databinding.ItemCultivoBinding;
 
@@ -77,8 +78,11 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             Date fecha = new Date(cultivo.getFechaInicio());
             binding.textViewFechaInicioCultivo.setText(sdf.format(fecha));
+            binding.imageViewCultivo.setImageResource(getImageResourceForCultivo(cultivo.getTipo()));
         }
     }
+
+
 
     public interface  OnItemClickListener{
         void onItemClickCultivo(Cultivo cultivo);
@@ -86,5 +90,21 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
 
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
+    }
+
+    public int getImageResourceForCultivo(Cultivo.TipoCultivo tipoCultivo){
+        switch (tipoCultivo){
+            case FRUTAL:
+                return R.drawable.frutal_tree_icon;
+            case AROMATICO:
+                return R.drawable.aromatic_icon;
+            case ORNAMENTAL:
+                return R.drawable.decorative_icon;
+            case INDEFINIDO:
+                return R.drawable.other_icon;
+            default:
+                return R.drawable.other_icon;
+
+        }
     }
 }
