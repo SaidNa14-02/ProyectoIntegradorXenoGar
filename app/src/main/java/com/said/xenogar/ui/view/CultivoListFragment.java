@@ -74,7 +74,7 @@ public class CultivoListFragment extends Fragment implements CultivoListAdapter.
     @Override
     public void onItemClickCultivo(Cultivo cultivo) {
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.main, CultivoDetailFragment.newInstance(cultivo.getId()))
+                .replace(R.id.main, CultivoPagerFragment.newInstance(cultivo.getId()))
                 .addToBackStack(null)
                 .commit();
     }

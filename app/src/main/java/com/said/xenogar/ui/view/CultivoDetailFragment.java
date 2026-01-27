@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CultivoDetailFragment extends Fragment {
-    public static final String ARG_CUlTIVO_ID = "cultivoId";
+    public static final String ARG_CULTIVO_ID = "cultivoId";
     private CultivoDetailViewModel viewModel;
     private FragmentCultivoDetailBinding binding;
 
@@ -124,7 +124,7 @@ public class CultivoDetailFragment extends Fragment {
     public static CultivoDetailFragment newInstance(Long cultivoId){
         CultivoDetailFragment fragment = new CultivoDetailFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_CUlTIVO_ID, cultivoId);
+        args.putLong(ARG_CULTIVO_ID, cultivoId);
         fragment.setArguments(args);
         return fragment;
     }
