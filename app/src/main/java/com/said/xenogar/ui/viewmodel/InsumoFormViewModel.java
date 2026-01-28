@@ -21,7 +21,7 @@ public class InsumoFormViewModel extends ViewModel {
     public final MutableLiveData<String> cantidadActual = new MutableLiveData<>();
     public final MutableLiveData<String> unidad = new MutableLiveData<>();
     public final MutableLiveData<String> puntoReorden = new MutableLiveData<>();
-    public final MutableLiveData<Boolean> isUnidadSelectionEnabled = new MutableLiveData<>(true); // Inicialmente habilitado
+    public final MutableLiveData<Boolean> isUnidadSelectionEnabled = new MutableLiveData<>(true);
 
     private final MutableLiveData<String> nombreError = new MutableLiveData<>();
     private final MutableLiveData<String> tipoError = new MutableLiveData<>();

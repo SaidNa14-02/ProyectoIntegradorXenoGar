@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.said.xenogar.ui.view.ActividadesFragment;
 import com.said.xenogar.ui.view.CultivoDetailFragment;
 
 public class CultivoPagerAdapter extends FragmentStateAdapter {
@@ -24,12 +25,7 @@ public class CultivoPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return CultivoDetailFragment.newInstance(cultivoId);
             case 1:
-
-                Fragment placeholderFragment = new Fragment();
-                Bundle args = new Bundle();
-
-                placeholderFragment.setArguments(args);
-                return placeholderFragment;
+                return ActividadesFragment.newInstance(cultivoId);
             default:
                 throw new IllegalStateException("Posición de pestaña no válida: " + position);
         }

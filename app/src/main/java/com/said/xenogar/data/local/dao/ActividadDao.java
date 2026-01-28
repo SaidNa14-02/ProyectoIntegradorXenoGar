@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.said.xenogar.data.local.entity.Actividad;
+import com.said.xenogar.data.local.entity.ActividadConInsumo;
 import com.said.xenogar.data.local.entity.ActividadInsumo;
 
 import java.util.List;
@@ -53,4 +54,14 @@ public interface ActividadDao {
             }
         }
     }
+    @Transaction
+    @Query("SELECT * FROM actividades WHERE id = :actividadId")
+    LiveData<ActividadConInsumo> getActividadConInsumos(long actividadId);
+
+    @Transaction
+    @Query("SELECT * FROM actividades WHERE id = :actividadId")
+    ActividadConInsumo getActividadConInsumosSync(long actividadId);
+
+    @Query("SELECT * FROM actividad_insumo WHERE actividadId = :actividadId AND insumoId = :insumoId")
+    ActividadInsumo getActividadInsumoSync(long actividadId, long insumoId);
 }

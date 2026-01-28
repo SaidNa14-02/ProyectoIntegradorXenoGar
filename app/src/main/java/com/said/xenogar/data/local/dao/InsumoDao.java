@@ -26,4 +26,7 @@ public interface InsumoDao {
 
     @Query("SELECT * FROM insumos WHERE id = :insumoId")
     LiveData<Insumo> getInsumo(long insumoId);
+    @Query("SELECT * FROM insumos WHERE id = :insumoId")
+    Insumo getInsumoSync(long insumoId);
 }
+
