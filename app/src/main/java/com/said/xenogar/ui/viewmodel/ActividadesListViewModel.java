@@ -6,9 +6,6 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.said.xenogar.data.local.entity.Actividad;
-import com.said.xenogar.data.local.entity.ActividadConInsumo;
-import com.said.xenogar.data.local.entity.ActividadInsumo; // Import needed
-import com.said.xenogar.data.local.entity.Insumo;
 import com.said.xenogar.data.repository.AgroRepository;
 import com.said.xenogar.ui.view.ActividadesFragment;
 
@@ -40,8 +37,8 @@ public class ActividadesListViewModel extends ViewModel {
         return actividades;
     }
 
-    public void insertActividad(Actividad actividad, List<ActividadInsumo> insumos) {
-        repository.insertActividadConInsumos(actividad, insumos);
+    public void insertActividad(Actividad actividad) {
+        repository.insertActividad(actividad);
     }
 
     public void updateActividad(Actividad actividad) {
@@ -50,15 +47,5 @@ public class ActividadesListViewModel extends ViewModel {
 
     public void deleteActividad(Actividad actividad) {
         repository.deleteActividad(actividad);
-    }
-
-    // NEW: Method to update activity status and handle insumo consumption
-    public void updateActividadStatus(Actividad actividad, Actividad.Estado newStatus) {
-        actividad.setEstado(newStatus);
-        repository.updateActividad(actividad);
-
-        if (newStatus == Actividad.Estado.COMPLETADA) {
-            repository.consumeInsumosForCompletedActividad(actividad.getId());
-        }
     }
 }

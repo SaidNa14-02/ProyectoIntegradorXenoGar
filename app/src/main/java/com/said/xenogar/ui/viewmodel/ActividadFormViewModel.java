@@ -7,8 +7,6 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
 import com.said.xenogar.data.local.entity.Actividad;
-import com.said.xenogar.data.local.entity.ActividadInsumo;
-import com.said.xenogar.data.local.entity.Insumo;
 import com.said.xenogar.data.repository.AgroRepository;
 import com.said.xenogar.ui.view.ActividadFormFragment;
 
@@ -16,8 +14,6 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -41,7 +37,6 @@ public class ActividadFormViewModel extends ViewModel {
     private final MutableLiveData<String> estadoError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> navegarAtras = new MutableLiveData<>();
 
-
     private final AgroRepository repository;
     private final SavedStateHandle savedStateHandle;
 
@@ -51,12 +46,6 @@ public class ActividadFormViewModel extends ViewModel {
 
     private LiveData<Actividad> actividadLiveData;
     private final Observer<Actividad> actividadObserver;
-
-    public LiveData<List<Insumo>> allInsumos;
-
-    // NEW: LiveData to manage insumos associated with the current activity
-    public final MutableLiveData<List<ActividadInsumo>> selectedInsumos = new MutableLiveData<>(new ArrayList<>());
-
 
     @Inject
     public ActividadFormViewModel(AgroRepository repository, SavedStateHandle savedStateHandle) {
@@ -80,58 +69,13 @@ public class ActividadFormViewModel extends ViewModel {
                 } else {
                     fecha.setValue(Instant.ofEpochMilli(actividad.getFecha()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
                 }
-
             }
         };
-
-        // Initialize allInsumos
-        this.allInsumos = repository.getAllInsumos(); // NEW: Initialize allInsumos
 
         Long initialCultivoId = savedStateHandle.get(ActividadFormFragment.ARG_CULTIVO_ID_FORM);
         if (initialCultivoId != null && initialCultivoId != 0L) {
             this.cultivoId = initialCultivoId;
         }
-    }
-
-    // NEW: Methods to manage selected insumos
-    public void addSelectedInsumo(ActividadInsumo insumo) {
-        List<ActividadInsumo> currentList = selectedInsumos.getValue();
-        if (currentList == null) {
-            currentList = new ArrayList<>();
-        }
-        currentList.add(insumo);
-        selectedInsumos.setValue(currentList);
-    }
-
-    public void updateSelectedInsumo(ActividadInsumo insumo) {
-        List<ActividadInsumo> currentList = selectedInsumos.getValue();
-        if (currentList != null) {
-            int index = -1;
-            for (int i = 0; i < currentList.size(); i++) {
-                if (currentList.get(i).getInsumoId() == insumo.getInsumoId()) {
-                    index = i;
-                    break;
-                }
-            }
-            if (index != -1) {
-                currentList.set(index, insumo);
-                selectedInsumos.setValue(currentList);
-            }
-        }
-    }
-
-    public void removeSelectedInsumo(ActividadInsumo insumo) {
-        List<ActividadInsumo> currentList = selectedInsumos.getValue();
-        if (currentList != null) {
-            currentList.removeIf(ai -> ai.getInsumoId() == insumo.getInsumoId());
-            selectedInsumos.setValue(currentList);
-        }
-    }
-
-
-    // NEW: Getter for selectedInsumos
-    public LiveData<List<ActividadInsumo>> getSelectedInsumos() {
-        return selectedInsumos;
     }
 
     public void cargarActividad(long id) {
@@ -183,7 +127,6 @@ public class ActividadFormViewModel extends ViewModel {
         navegarAtras.setValue(false);
     }
 
-
     private boolean validarTipoActividad() {
         if (tipoActividad.getValue() == null || tipoActividad.getValue().trim().isEmpty()) {
             tipoActividadError.setValue("Debe seleccionar un tipo de actividad");
@@ -221,8 +164,7 @@ public class ActividadFormViewModel extends ViewModel {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         try {
-            LocalDate fechaSeleccionada = LocalDate.parse(fecha.getValue(), formatter);
-            // Optionally, you could add logic here to prevent future dates or restrict date ranges
+            LocalDate.parse(fecha.getValue(), formatter);
             fechaError.setValue(null);
             return true;
         } catch (Exception e) {
@@ -248,7 +190,7 @@ public class ActividadFormViewModel extends ViewModel {
 
     private boolean validarDescripcion() {
         if (descripcion.getValue() != null) {
-            int maxLength = 500; // Define your max length
+            int maxLength = 500;
             if (descripcion.getValue().length() > maxLength) {
                 descripcionError.setValue("La descripción no puede exceder los " + maxLength + " caracteres");
                 return false;
@@ -272,34 +214,27 @@ public class ActividadFormViewModel extends ViewModel {
             return;
         }
 
-        // Ensure cultivoId is set
         if (cultivoId == null) {
-            // This should ideally not happen if navigation is set up correctly,
-            // but add a check or throw an error if necessary
-            navegarAtras.setValue(false); // Do not navigate if no cultivo is associated
+            navegarAtras.setValue(false);
             return;
         }
 
-        // Convert date string to long
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.parse(fecha.getValue(), formatter);
         long fechaParaDb = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
 
         Actividad actividadAGuardar;
 
-        if (actividadId == null) {
-            // Create new Actividad using the Builder
+        if (actividadId == null) { // New activity
             actividadAGuardar = new Actividad.ActividadBuilder(cultivoId, Actividad.TipoActividad.valueOf(tipoActividad.getValue()))
                     .setPrioridad(Actividad.Prioridad.valueOf(prioridad.getValue()))
                     .setFecha(fechaParaDb)
                     .setDescripcion(descripcion.getValue() != null ? descripcion.getValue().trim() : "")
                     .setEstado(Actividad.Estado.valueOf(estado.getValue()))
                     .build();
-            // Pass the selected insumos list
-            repository.insertActividadConInsumos(actividadAGuardar, selectedInsumos.getValue());
-        } else {
-            // Update existing Actividad
-            actividadAGuardar = actividadExistente; // Start with the existing object
+            repository.insertActividad(actividadAGuardar);
+        } else { // Update existing activity
+            actividadAGuardar = actividadExistente;
             actividadAGuardar.setActividad(Actividad.TipoActividad.valueOf(tipoActividad.getValue()));
             actividadAGuardar.setPrioridad(Actividad.Prioridad.valueOf(prioridad.getValue()));
             actividadAGuardar.setFecha(fechaParaDb);
@@ -308,6 +243,6 @@ public class ActividadFormViewModel extends ViewModel {
             repository.updateActividad(actividadAGuardar);
         }
 
-        navegarAtras.setValue(true); // Indicate successful save and readiness to navigate back
+        navegarAtras.setValue(true);
     }
 }

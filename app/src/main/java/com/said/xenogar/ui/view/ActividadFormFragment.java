@@ -3,6 +3,7 @@ package com.said.xenogar.ui.view;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.said.xenogar.R;
@@ -28,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ActividadFormFragment extends Fragment {
 
+    private static final String TAG = "ActividadFormFragment";
     public static final String ARG_ACTIVIDAD_ID = "actividad_id";
     public static final String ARG_CULTIVO_ID_FORM = "cultivo_id_form";
 
@@ -51,16 +54,6 @@ public class ActividadFormFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ActividadFormViewModel.class);
-        if (getArguments() != null) {
-            long cultivoId = getArguments().getLong(ARG_CULTIVO_ID_FORM, 0L);
-
-            if (getArguments().containsKey(ARG_ACTIVIDAD_ID)) {
-                long actividadId = getArguments().getLong(ARG_ACTIVIDAD_ID);
-                viewModel.cargarActividad(actividadId);
-            } else if (cultivoId != 0L) {
-                viewModel.setCultivoId(cultivoId);
-            }
-        }
     }
 
     @Override
@@ -73,11 +66,22 @@ public class ActividadFormFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            long cultivoId = getArguments().getLong(ARG_CULTIVO_ID_FORM, 0L);
+
+            if (getArguments().containsKey(ARG_ACTIVIDAD_ID)) {
+                long actividadId = getArguments().getLong(ARG_ACTIVIDAD_ID);
+                viewModel.cargarActividad(actividadId);
+            } else if (cultivoId != 0L) {
+                viewModel.setCultivoId(cultivoId);
+            }
+        }
+
         setupDropdowns();
         initListeners();
-        initObservers(); // Call the new method
+        initObservers();
 
-        // Placeholder for setting header and button text (will be moved to initObservers later for dynamic updates)
         if (getArguments() != null && getArguments().containsKey(ARG_ACTIVIDAD_ID)) {
             binding.formHeader.setText(R.string.actividad_form_title_edit);
             binding.submitActividadButton.setText(R.string.actividad_form_submitbutton_text_update);

@@ -7,7 +7,6 @@ import androidx.room.Room;
 import com.said.xenogar.data.local.AppDatabase;
 import com.said.xenogar.data.local.dao.ActividadDao;
 import com.said.xenogar.data.local.dao.CultivoDao;
-import com.said.xenogar.data.local.dao.InsumoDao;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,11 +40,6 @@ public class DatabaseModule {
     @Provides
     public CultivoDao provideCultivoDao(AppDatabase database){
         return database.cultivoDao();
-    }
-
-    @Provides
-    public InsumoDao provideInsumoDao(AppDatabase database){
-        return database.insumoDao();
     }
 
     @Provides
