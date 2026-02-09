@@ -43,4 +43,7 @@ public interface ActividadDao {
 
     @Query("SELECT * FROM actividades WHERE id = :actividadId")
     Actividad getActividadByIdSync(long actividadId);
+
+    @Query("SELECT * FROM actividades WHERE fecha BETWEEN :startDateMillis AND :endDateMillis ORDER BY fecha ASC")
+    List<Actividad> getActividadesInDateRangeSync(long startDateMillis, long endDateMillis);
 }

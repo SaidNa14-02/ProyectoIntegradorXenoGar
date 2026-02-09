@@ -107,4 +107,13 @@ public class AgroRepository {
             }
         });
     }
+
+    public List<Actividad> getActividadesInDateRangeSync(long startDateMillis, long endDateMillis) {
+        try {
+            return executorService.submit(() -> actividadDao.getActividadesInDateRangeSync(startDateMillis, endDateMillis)).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

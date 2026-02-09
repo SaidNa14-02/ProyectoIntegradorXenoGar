@@ -19,6 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.qualifiers.ApplicationContext;
+
 public class NotificationHelper {
 
     private static final String CHANNEL_ID = "activity_reminder_channel";
@@ -28,7 +32,8 @@ public class NotificationHelper {
     private final Context context;
     private final NotificationManagerCompat notificationManager;
 
-    public NotificationHelper(Context context) {
+    @Inject
+    public NotificationHelper(@ApplicationContext Context context) {
         this.context = context;
         this.notificationManager = NotificationManagerCompat.from(context);
         createNotificationChannel();

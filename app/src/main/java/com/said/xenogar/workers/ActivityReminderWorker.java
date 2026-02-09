@@ -1,7 +1,9 @@
 package com.said.xenogar.workers;
 
 import android.content.Context;
+import android.util.Log; // Import added
 import androidx.annotation.NonNull;
+import androidx.hilt.work.HiltWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -18,10 +20,11 @@ import java.util.Date; // Explicitly import Date for clarity
 
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
-import dagger.hilt.android.workers.HiltWorker;
 
 @HiltWorker
 public class ActivityReminderWorker extends Worker {
+
+    private static final String TAG = "ActivityReminderWorker"; // Tag added for logging
 
     private final AgroRepository repository;
     private final NotificationHelper notificationHelper;
@@ -39,7 +42,7 @@ public class ActivityReminderWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        // Define "close to due date" condition: today or overdue
+        Log.d(TAG, "Starting Activity Reminder Worker."); // Log start
         LocalDate today = LocalDate.now();
 
         try {
@@ -47,18 +50,15 @@ public class ActivityReminderWorker extends Worker {
             List<Cultivo> allCultivosSync = repository.getAllCultivosSync();
 
             if (allActividades == null || allCultivosSync == null) {
-                // If data fetching failed, retry later
+                Log.e(TAG, "Failed to retrieve activities or cultivos. Retrying."); // Log error
                 return Result.retry();
             }
 
+            Log.d(TAG, "Retrieved " + allActividades.size() + " activities and " + allCultivosSync.size() + " cultivos."); // Log data count
+
             for (Actividad actividad : allActividades) {
-                // Convert long fecha to LocalDate for comparison
-                // Actividad.getFecha() returns milliseconds, convert to Date first
                 LocalDate actividadDate = new Date(actividad.getFecha()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-                // Check alert conditions:
-                // 1. Due today or overdue (actividadDate is today or in the past)
-                // 2. Status is PENDIENTE or EN_PROGRESO
                 boolean isDueOrOverdue = actividadDate.isBefore(today) || actividadDate.isEqual(today);
                 boolean isPendingOrInProgress = actividad.getEstado() == Actividad.Estado.PENDIENTE || actividad.getEstado() == Actividad.Estado.EN_PROGRESO;
 
@@ -72,17 +72,16 @@ public class ActivityReminderWorker extends Worker {
                     }
 
                     if (associatedCultivo != null) {
-                        // Show notification
-                        // Using a unique ID for each activity reminder notification
                         int notificationId = actividad.getId().intValue();
                         notificationHelper.showActivityReminderNotification(notificationId, associatedCultivo, actividad);
+                        Log.d(TAG, "Notification shown for activity: " + actividad.getId() + " - " + actividad.getActividad()); // Log notification trigger
                     }
                 }
             }
+            Log.d(TAG, "Activity Reminder Worker finished successfully."); // Log success
             return Result.success();
         } catch (Exception e) {
-            // Log the error
-            e.printStackTrace();
+            Log.e(TAG, "Error in Activity Reminder Worker: " + e.getMessage(), e); // Log exception
             return Result.failure();
         }
     }
