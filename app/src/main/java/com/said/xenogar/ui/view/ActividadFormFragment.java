@@ -32,7 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ActividadFormFragment extends Fragment {
 
-    private static final String TAG = "ActividadFormFragment";
+
     public static final String ARG_ACTIVIDAD_ID = "actividad_id";
     public static final String ARG_CULTIVO_ID_FORM = "cultivo_id_form";
 

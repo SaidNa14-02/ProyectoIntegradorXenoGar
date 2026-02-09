@@ -8,21 +8,22 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.said.xenogar.R;
-import com.said.xenogar.data.local.entity.Actividad; // For Actividad.TipoActividad.toString()
-import com.said.xenogar.data.local.entity.Cultivo; // For Cultivo.getNombre()
-import com.said.xenogar.ui.notifications.NotificationActionReceiver; // Will create this later
+import com.said.xenogar.data.local.entity.Actividad;
+import com.said.xenogar.data.local.entity.Cultivo;
+import com.said.xenogar.ui.notifications.NotificationActionReceiver;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
+@Singleton
 public class NotificationHelper {
 
     private static final String CHANNEL_ID = "activity_reminder_channel";
@@ -30,12 +31,12 @@ public class NotificationHelper {
     private static final String CHANNEL_DESCRIPTION = "Notificaciones para actividades próximas o vencidas";
 
     private final Context context;
-    private final NotificationManagerCompat notificationManager;
+    private final NotificationManager notificationManager;
 
     @Inject
     public NotificationHelper(@ApplicationContext Context context) {
         this.context = context;
-        this.notificationManager = NotificationManagerCompat.from(context);
+        this.notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         createNotificationChannel();
     }
 
@@ -44,12 +45,15 @@ public class NotificationHelper {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_LOW // Low importance for less intrusive alerts
+                    NotificationManager.IMPORTANCE_DEFAULT
             );
             channel.setDescription(CHANNEL_DESCRIPTION);
-            channel.enableLights(false);
-            channel.enableVibration(false);
-            notificationManager.createNotificationChannel(channel);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
         }
     }
 
@@ -59,9 +63,10 @@ public class NotificationHelper {
         String tipoActividad = actividad.getActividad().toString();
         String fechaActividad = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(actividad.getFecha()));
 
-        String title = context.getString(R.string.notification_title_activity_reminder); // Will add this string resource
-        String content = context.getString(R.string.notification_content_activity_reminder,
-                cultivoName, actividadName, tipoActividad, fechaActividad); // Will add this string resource
+        String title = "Recordatorio de Actividad"; // O usa: context.getString(R.string.notification_title_activity_reminder)
+        String content = String.format(Locale.getDefault(),
+                "Cultivo: %s\nActividad: %s (%s)\nFecha: %s",
+                cultivoName, actividadName, tipoActividad, fechaActividad);
 
         // Intent for "Mark as Completed" action
         Intent completeIntent = new Intent(context, NotificationActionReceiver.class);
@@ -70,7 +75,7 @@ public class NotificationHelper {
         completeIntent.putExtra("notification_id", notificationId);
         PendingIntent completePendingIntent = PendingIntent.getBroadcast(
                 context,
-                (int) (actividad.getId() + 1), // Unique request code
+                (int) (actividad.getId() * 10 + 1), // Unique request code
                 completeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
@@ -82,21 +87,23 @@ public class NotificationHelper {
         inProgressIntent.putExtra("notification_id", notificationId);
         PendingIntent inProgressPendingIntent = PendingIntent.getBroadcast(
                 context,
-                (int) (actividad.getId() + 2), // Unique request code
+                (int) (actividad.getId() * 10 + 2), // Unique request code
                 inProgressIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.other_icon) // Using a generic icon for now
+                .setSmallIcon(R.drawable.other_icon) // Asegúrate de que este drawable exista
                 .setContentTitle(title)
                 .setContentText(content)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(content))
-                .setPriority(NotificationCompat.PRIORITY_LOW) // Low priority for less intrusion
-                .addAction(R.drawable.ic_check_circle_outline, context.getString(R.string.notification_action_complete), completePendingIntent) // Will add this string resource and drawable
-                .addAction(R.drawable.ic_play_circle_outline, context.getString(R.string.notification_action_in_progress), inProgressPendingIntent) // Will add this string resource and drawable
-                .setAutoCancel(true); // Notification disappears when clicked (or action button clicked)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .addAction(android.R.drawable.ic_menu_save, "Completar", completePendingIntent) // Usa iconos del sistema temporalmente
+                .addAction(android.R.drawable.ic_media_play, "En Progreso", inProgressPendingIntent)
+                .setAutoCancel(true);
 
-        notificationManager.notify(notificationId, builder.build());
+        if (notificationManager != null) {
+            notificationManager.notify(notificationId, builder.build());
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.said.xenogar.workers;
 
 import android.content.Context;
-import android.util.Log; // Import added
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.hilt.work.HiltWorker;
 import androidx.work.Worker;
@@ -15,8 +15,7 @@ import com.said.xenogar.util.NotificationHelper;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
-import java.util.concurrent.TimeUnit; // Import for time unit
-import java.util.Date; // Explicitly import Date for clarity
+import java.util.Date;
 
 import dagger.assisted.Assisted;
 import dagger.assisted.AssistedInject;
@@ -24,7 +23,7 @@ import dagger.assisted.AssistedInject;
 @HiltWorker
 public class ActivityReminderWorker extends Worker {
 
-    private static final String TAG = "ActivityReminderWorker"; // Tag added for logging
+    private static final String TAG = "ActivityReminderWorker";
 
     private final AgroRepository repository;
     private final NotificationHelper notificationHelper;
@@ -37,30 +36,42 @@ public class ActivityReminderWorker extends Worker {
         super(context, workerParams);
         this.repository = repository;
         this.notificationHelper = notificationHelper;
+        Log.d(TAG, "Worker instantiated successfully!");
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        Log.d(TAG, "Starting Activity Reminder Worker."); // Log start
+        Log.d(TAG, "===== Starting Activity Reminder Worker =====");
         LocalDate today = LocalDate.now();
+        Log.d(TAG, "Today's date: " + today);
 
         try {
+            Log.d(TAG, "Fetching activities and cultivos...");
             List<Actividad> allActividades = repository.getAllActividadesSync();
             List<Cultivo> allCultivosSync = repository.getAllCultivosSync();
 
             if (allActividades == null || allCultivosSync == null) {
-                Log.e(TAG, "Failed to retrieve activities or cultivos. Retrying."); // Log error
+                Log.e(TAG, "Failed to retrieve data. Activities: " + (allActividades == null ? "null" : "ok") +
+                        ", Cultivos: " + (allCultivosSync == null ? "null" : "ok"));
                 return Result.retry();
             }
 
-            Log.d(TAG, "Retrieved " + allActividades.size() + " activities and " + allCultivosSync.size() + " cultivos."); // Log data count
+            Log.d(TAG, "Retrieved " + allActividades.size() + " activities and " + allCultivosSync.size() + " cultivos.");
 
+            int notificationCount = 0;
             for (Actividad actividad : allActividades) {
-                LocalDate actividadDate = new Date(actividad.getFecha()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Log.d(TAG, "Processing activity: " + actividad.getId() + " - " + actividad.getActividad());
+
+                LocalDate actividadDate = new Date(actividad.getFecha()).toInstant()
+                        .atZone(ZoneId.systemDefault()).toLocalDate();
+                Log.d(TAG, "Activity date: " + actividadDate + ", Status: " + actividad.getEstado());
 
                 boolean isDueOrOverdue = actividadDate.isBefore(today) || actividadDate.isEqual(today);
-                boolean isPendingOrInProgress = actividad.getEstado() == Actividad.Estado.PENDIENTE || actividad.getEstado() == Actividad.Estado.EN_PROGRESO;
+                boolean isPendingOrInProgress = actividad.getEstado() == Actividad.Estado.PENDIENTE ||
+                        actividad.getEstado() == Actividad.Estado.EN_PROGRESO;
+
+                Log.d(TAG, "isDueOrOverdue: " + isDueOrOverdue + ", isPendingOrInProgress: " + isPendingOrInProgress);
 
                 if (isDueOrOverdue && isPendingOrInProgress) {
                     Cultivo associatedCultivo = null;
@@ -73,15 +84,21 @@ public class ActivityReminderWorker extends Worker {
 
                     if (associatedCultivo != null) {
                         int notificationId = actividad.getId().intValue();
+                        Log.d(TAG, ">>> SHOWING NOTIFICATION for activity: " + actividad.getId() +
+                                " - Cultivo: " + associatedCultivo.getNombre());
                         notificationHelper.showActivityReminderNotification(notificationId, associatedCultivo, actividad);
-                        Log.d(TAG, "Notification shown for activity: " + actividad.getId() + " - " + actividad.getActividad()); // Log notification trigger
+                        notificationCount++;
+                    } else {
+                        Log.w(TAG, "No cultivo found for activity: " + actividad.getId() +
+                                " (cultivoId: " + actividad.getCultivoId() + ")");
                     }
                 }
             }
-            Log.d(TAG, "Activity Reminder Worker finished successfully."); // Log success
+
+            Log.d(TAG, "===== Worker finished successfully. Sent " + notificationCount + " notifications =====");
             return Result.success();
         } catch (Exception e) {
-            Log.e(TAG, "Error in Activity Reminder Worker: " + e.getMessage(), e); // Log exception
+            Log.e(TAG, "Error in Activity Reminder Worker: " + e.getMessage(), e);
             return Result.failure();
         }
     }

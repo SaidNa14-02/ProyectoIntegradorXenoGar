@@ -52,14 +52,13 @@ public class CultivoFormFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentCultivoFormBinding.inflate(inflater, container, false);
-        Toast.makeText(requireContext(), "CultivoFormFragment: onCreateView called", Toast.LENGTH_SHORT).show(); // TEMP DEBUG
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toast.makeText(requireContext(), "CultivoFormFragment: onViewCreated called", Toast.LENGTH_SHORT).show(); // TEMP DEBUG
         setupTipoCultivoDropdown();
         initListeners();
         initObservers();

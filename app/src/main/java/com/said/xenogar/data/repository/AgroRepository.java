@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
+@Singleton
 public class AgroRepository {
     private final CultivoDao cultivoDao;
     private final ActividadDao actividadDao;
@@ -42,7 +44,7 @@ public class AgroRepository {
     }
 
     public void deleteCultivo(Cultivo cultivo){
-        executorService.execute(()-> cultivoDao.delete(cultivo));
+        executorService.execute(() -> cultivoDao.delete(cultivo));
     }
 
     //Metodos para el manejo de data de actividades
@@ -64,11 +66,11 @@ public class AgroRepository {
     }
 
     public void insertActividad(Actividad actividad){
-        executorService.execute(()-> actividadDao.insert(actividad));
+        executorService.execute(() -> actividadDao.insert(actividad));
     }
 
     public void updateActividad(Actividad actividad){
-        executorService.execute(()-> actividadDao.update(actividad));
+        executorService.execute(() -> actividadDao.update(actividad));
     }
 
     public void deleteActividad(Actividad actividad){

@@ -18,7 +18,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject; // Assuming Hilt injection will be used for this class
+import javax.inject.Singleton;
 
+@Singleton
 public class SummaryGenerator {
 
     private static final String TAG = "SummaryGenerator"; // Tag added for logging
@@ -68,34 +70,31 @@ public class SummaryGenerator {
      * @return A JSON string representing the weekly summary, or null if an error occurs.
      */
     public String generateWeeklySummaryJson() {
-        Log.d(TAG, "Generating weekly summary JSON."); // Log start
+        Log.d(TAG, "Generating weekly summary JSON.");
         try {
             long startOfWeek = getStartOfWeekMillis();
             long endOfWeek = getEndOfWeekMillis();
 
-            Log.d(TAG, "Current week: " + new Date(startOfWeek) + " to " + new Date(endOfWeek)); // Log date range
+            Log.d(TAG, "Current week: " + new Date(startOfWeek) + " to " + new Date(endOfWeek));
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String summaryDateRange = dateFormat.format(new Date(startOfWeek)) + " to " + dateFormat.format(new Date(endOfWeek));
+            String summaryDateRange = "Reporte Semanal: " + dateFormat.format(new Date(startOfWeek)) + " - " + dateFormat.format(new Date(endOfWeek));
 
             List<Actividad> weeklyActivities = repository.getActividadesInDateRangeSync(startOfWeek, endOfWeek);
             List<Cultivo> allCultivos = repository.getAllCultivosSync();
 
             if (weeklyActivities == null || allCultivos == null) {
-                Log.e(TAG, "Failed to retrieve activities or cultivations from repository."); // Log error
-                return null; // Data fetching failed
+                Log.e(TAG, "Failed to retrieve activities or cultivations from repository.");
+                return null;
             }
 
-            Log.d(TAG, "Retrieved " + weeklyActivities.size() + " weekly activities and " + allCultivos.size() + " cultivations."); // Log data count
+            Log.d(TAG, "Retrieved " + weeklyActivities.size() + " weekly activities and " + allCultivos.size() + " cultivations.");
 
-
-            // Map cultivo IDs to Cultivo objects for easy lookup
             Map<Long, Cultivo> cultivoMap = new HashMap<>();
             for (Cultivo cultivo : allCultivos) {
                 cultivoMap.put(cultivo.getId(), cultivo);
             }
 
-            // Group activities by cultivation
             Map<Long, JSONArray> actividadesByCultivo = new HashMap<>();
             for (Actividad actividad : weeklyActivities) {
                 JSONObject actividadJson = new JSONObject();
@@ -103,7 +102,6 @@ public class SummaryGenerator {
                 actividadJson.put("tipoActividad", actividad.getActividad().toString());
                 actividadJson.put("fecha", dateFormat.format(new Date(actividad.getFecha())));
                 actividadJson.put("estado", actividad.getEstado().toString());
-                // Add other relevant activity details if needed
 
                 if (!actividadesByCultivo.containsKey(actividad.getCultivoId())) {
                     actividadesByCultivo.put(actividad.getCultivoId(), new JSONArray());
@@ -116,11 +114,9 @@ public class SummaryGenerator {
                 Cultivo cultivo = cultivoMap.get(entry.getKey());
                 if (cultivo != null) {
                     JSONObject cultivoJson = new JSONObject();
-                    cultivoJson.put("id", cultivo.getId());
                     cultivoJson.put("nombre", cultivo.getNombre());
                     cultivoJson.put("tipo", cultivo.getTipo().toString());
                     cultivoJson.put("actividades", entry.getValue());
-                    // Add other relevant cultivation details if needed
                     cultivosArray.put(cultivoJson);
                 }
             }
@@ -130,10 +126,10 @@ public class SummaryGenerator {
             summaryJson.put("cultivos", cultivosArray);
 
             String finalJson = summaryJson.toString(2);
-            Log.d(TAG, "Generated JSON Summary:\n" + finalJson); // Log final JSON
+            Log.d(TAG, "Generated JSON Summary:\n" + finalJson);
             return finalJson;
         } catch (JSONException e) {
-            Log.e(TAG, "Error generating JSON summary: " + e.getMessage(), e); // Log exception
+            Log.e(TAG, "Error generating JSON summary: " + e.getMessage(), e);
             return null;
         }
     }
