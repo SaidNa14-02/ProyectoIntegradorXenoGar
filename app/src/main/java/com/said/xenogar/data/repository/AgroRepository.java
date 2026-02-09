@@ -78,4 +78,33 @@ public class AgroRepository {
     public ExecutorService getExecutorService() {
         return executorService;
     }
+
+    // Synchronous methods for workers or other blocking operations
+    public List<Actividad> getAllActividadesSync() {
+        try {
+            return executorService.submit(actividadDao::getAllActividadesSync).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Cultivo> getAllCultivosSync() {
+        try {
+            return executorService.submit(cultivoDao::getAllCultivosSync).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void updateActividadStatus(long actividadId, Actividad.Estado newStatus) {
+        executorService.execute(() -> {
+            Actividad actividad = actividadDao.getActividadByIdSync(actividadId);
+            if (actividad != null) {
+                actividad.setEstado(newStatus);
+                actividadDao.update(actividad);
+            }
+        });
+    }
 }

@@ -61,8 +61,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
 
-    //API
+    // WorkManager
     implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.hilt.work) // Hilt WorkManager integration
+    //API
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 

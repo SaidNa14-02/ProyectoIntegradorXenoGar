@@ -35,4 +35,7 @@ public interface CultivoDao {
     @Query("SELECT * FROM cultivos WHERE id = :cultivoId")
     public LiveData<CultivoConActividades> getCultivoConActividades(long cultivoId);
 
+    @Query("SELECT * FROM cultivos")
+    List<Cultivo> getAllCultivosSync();
+
 }

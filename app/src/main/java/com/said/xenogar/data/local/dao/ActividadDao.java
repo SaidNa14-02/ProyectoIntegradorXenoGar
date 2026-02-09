@@ -37,4 +37,10 @@ public interface ActividadDao {
 
     @Delete
     void delete(Actividad actividad);
+
+    @Query("SELECT * FROM actividades")
+    List<Actividad> getAllActividadesSync();
+
+    @Query("SELECT * FROM actividades WHERE id = :actividadId")
+    Actividad getActividadByIdSync(long actividadId);
 }
