@@ -51,6 +51,14 @@ public class AgroRepository {
         return actividadDao.getActividadesByCultivoId(cultivoId);
     }
 
+    public LiveData<List<Actividad>> getAllActividades() {
+        return actividadDao.getAllActividades();
+    }
+
+    public LiveData<List<Actividad>> getActividadesBetweenDates(String startDate, String endDate) {
+        return actividadDao.getActividadesBetweenDates(startDate, endDate);
+    }
+
     public LiveData<Actividad> getActividadById(long actividadId){
         return actividadDao.getActividadById(actividadId);
     }

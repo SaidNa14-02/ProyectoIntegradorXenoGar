@@ -29,6 +29,11 @@ public interface ActividadDao {
 
     @Query("SELECT * FROM actividades WHERE id = :actividadId")
     LiveData<Actividad> getActividadById(long actividadId);
+    @Query("SELECT * FROM actividades")
+    LiveData<List<Actividad>> getAllActividades();
+
+    @Query("SELECT * FROM actividades WHERE fecha BETWEEN :startDate AND :endDate")
+    LiveData<List<Actividad>> getActividadesBetweenDates(String startDate, String endDate);
 
     @Delete
     void delete(Actividad actividad);

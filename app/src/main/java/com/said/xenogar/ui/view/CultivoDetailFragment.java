@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.app.AlertDialog; // Import added
+import android.content.DialogInterface; // Import added
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,14 @@ public class CultivoDetailFragment extends Fragment {
     public static final String ARG_CULTIVO_ID = "cultivoId";
     private CultivoDetailViewModel viewModel;
     private FragmentCultivoDetailBinding binding;
+
+    public static CultivoDetailFragment newInstance(Long cultivoId){
+        CultivoDetailFragment fragment = new CultivoDetailFragment();
+        Bundle args = new Bundle();
+        args.putLong(ARG_CULTIVO_ID, cultivoId);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,23 +103,22 @@ public class CultivoDetailFragment extends Fragment {
         });
 
         binding.deleteCultivoButton.setOnClickListener(v -> {
-            if(viewModel.getDetalleCultivo().getValue() != null) {
-                viewModel.deleteCultivo(viewModel.getDetalleCultivo().getValue());
-                getParentFragmentManager().popBackStack();
-            }
+            new AlertDialog.Builder(requireContext())
+                .setTitle("Confirmar Eliminación")
+                .setMessage("¿Está seguro de que desea eliminar este cultivo? Esta acción no se puede deshacer.")
+                .setPositiveButton("Eliminar", (dialog, which) -> {
+                    if(viewModel.getDetalleCultivo().getValue() != null) {
+                        viewModel.deleteCultivo(viewModel.getDetalleCultivo().getValue());
+                        getParentFragmentManager().popBackStack();
+                    }
+                })
+                .setNegativeButton("Cancelar", null) // Dismisses dialog on click
+                .show();
         });
     }
 
     private String formatDate(long timeInMillis) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
         return sdf.format(new Date(timeInMillis));
-    }
-
-    public static CultivoDetailFragment newInstance(Long cultivoId){
-        CultivoDetailFragment fragment = new CultivoDetailFragment();
-        Bundle args = new Bundle();
-        args.putLong(ARG_CULTIVO_ID, cultivoId);
-        fragment.setArguments(args);
-        return fragment;
     }
 }

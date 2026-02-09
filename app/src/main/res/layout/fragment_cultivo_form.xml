@@ -48,7 +48,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/cultivo_form_name_label"
                         android:textSize="18sp"
@@ -81,6 +81,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/cultivo_form_tipo_label"
                         android:textSize="18sp"
@@ -110,7 +111,7 @@
                     <!-- CAMPO: FECHA INICIO -->
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
                         android:text="@string/fecha_de_inicio_cultivo_form_label"
@@ -135,6 +136,7 @@
                             android:focusable="false"
                             android:hint="@string/cultivo_form_date_hint"
                             android:inputType="date"
+                            android:minHeight="48dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,6 +144,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/fecha_form_end_date_label"
                         android:textSize="18sp"
@@ -165,13 +168,15 @@
                             android:textSize="14sp"
                             android:focusable="false"
                             android:hint="@string/end_date_hint_optional"
-                            android:inputType="date"/>
+                            android:inputType="date"
+                            android:minHeight="48dp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- CAMPO: EXISTENCIAS -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/existencias_iniciales_cultivo_form_label"
                         android:textSize="18sp"
@@ -193,6 +198,7 @@
                             android:background="@drawable/box_shadow"
                             android:hint="@string/cultivo_form_existencias_hint"
                             android:inputType="number"
+                            android:minHeight="48dp"
                             android:textSize="14sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -200,6 +206,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="@string/descripcion_label_form"
                         android:textSize="18sp"

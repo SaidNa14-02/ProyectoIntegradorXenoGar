@@ -46,8 +46,13 @@ public class CultivoListFragment extends Fragment implements CultivoListAdapter.
         setupRecyclerView();
         adapter.setOnItemClickListener(this);
         viewModel.getListaCultivos().observe(getViewLifecycleOwner(), cultivos -> {
-            if (cultivos != null) {
+            if (cultivos != null && !cultivos.isEmpty()) {
                 adapter.submitList(cultivos);
+                binding.recyclerViewCultivos.setVisibility(View.VISIBLE);
+                binding.emptyListMessage.setVisibility(View.GONE);
+            } else {
+                binding.recyclerViewCultivos.setVisibility(View.GONE);
+                binding.emptyListMessage.setVisibility(View.VISIBLE);
             }
         });
 

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.app.AlertDialog; // Import added
+import android.content.DialogInterface; // Import added
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -73,7 +75,11 @@ public class ActividadFormFragment extends Fragment {
             if (getArguments().containsKey(ARG_ACTIVIDAD_ID)) {
                 long actividadId = getArguments().getLong(ARG_ACTIVIDAD_ID);
                 viewModel.cargarActividad(actividadId);
-            } else if (cultivoId != 0L) {
+                binding.deleteActividadButton.setVisibility(View.VISIBLE); // Show delete button
+            } else {
+                binding.deleteActividadButton.setVisibility(View.GONE); // Hide delete button for new activity
+            }
+            if (cultivoId != 0L) {
                 viewModel.setCultivoId(cultivoId);
             }
         }
@@ -138,6 +144,18 @@ public class ActividadFormFragment extends Fragment {
 
     private void initListeners() {
         binding.submitActividadButton.setOnClickListener(v -> viewModel.guardarActividad());
+
+        binding.deleteActividadButton.setOnClickListener(v -> {
+            new AlertDialog.Builder(requireContext())
+                .setTitle("Confirmar Eliminación")
+                .setMessage("¿Está seguro de que desea eliminar esta actividad? Esta acción no se puede deshacer.")
+                .setPositiveButton("Eliminar", (dialog, which) -> {
+                    viewModel.deleteCurrentActividad(); // Call new ViewModel method
+                    getParentFragmentManager().popBackStack(); // Navigate back after deletion
+                })
+                .setNegativeButton("Cancelar", null) // Dismisses dialog on click
+                .show();
+        });
 
         binding.autocompleteTipoActividad.setOnItemClickListener((parent, view, position, id) -> {
             Object item = parent.getItemAtPosition(position);

@@ -13,6 +13,8 @@ public class Cultivo {
         ORNAMENTAL("Ornamental"),
         FRUTAL("Frutal"),
         AROMATICO("Aromático"),
+        ALIMENTARIA("Alimentaria"),
+        MEDICINAL("Medicinal"),
         INDEFINIDO("Indefinido");
 
         private final String displayName;

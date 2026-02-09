@@ -192,7 +192,7 @@ public class CultivoFormFragment extends Fragment {
 
     private void initObservers() {
         viewModel.nombre.observe(getViewLifecycleOwner(), s -> {
-            if (!s.equals(binding.inputCultivoName.getText().toString())) {
+            if (s != null && !s.equals(binding.inputCultivoName.getText().toString())) {
                 binding.inputCultivoName.setText(s);
             }
         });
@@ -213,13 +213,13 @@ public class CultivoFormFragment extends Fragment {
             }
         });
         viewModel.existencias.observe(getViewLifecycleOwner(), s -> {
-            if (!s.equals(binding.inputCultivoExistencias.getText().toString())) {
+            if (s != null && !s.equals(binding.inputCultivoExistencias.getText().toString())) {
                 binding.inputCultivoExistencias.setText(s);
 
             }
         });
         viewModel.descripcion.observe(getViewLifecycleOwner(), s -> {
-            if (!s.equals(binding.inputCultivoDescripcion.getText().toString())) {
+            if (s != null && !s.equals(binding.inputCultivoDescripcion.getText().toString())) {
                 binding.inputCultivoDescripcion.setText(s);
             }
         });

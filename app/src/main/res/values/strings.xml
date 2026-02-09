@@ -5,6 +5,8 @@
     <string name="cultivo_image_description">Imagen del Cultivo</string>
     <string name="see_details_button">Ver Detalles</string>
     <string name="add_new_cultivo">Agregar Nuevo Cultivo</string>
+    <string name="agregar_cultivo">Agregar Cultivo</string>
+    <string name="titulo_lista_cultivos">Mis Cultivos</string>
 
     <!-- Para los detalles del cultivo -->
     <string name="existencias_label">Existencias</string>
@@ -57,5 +59,11 @@
     <string name="fecha_form_end_date_label">Fecha estimada de finalización</string>
     <string name="end_date_hint_optional"> dd/mm/yyyy (opcional)</string>
     <string name="eliminar_cultivo_button_label">Eliminar Cultivo</string>
+
+    <!-- For Activity Reminders Notifications -->
+    <string name="notification_title_activity_reminder">Recordatorio de Actividad</string>
+    <string name="notification_content_activity_reminder">La actividad %s de tipo %s para el cultivo %s está próxima a la fecha %s.</string>
+    <string name="notification_action_complete">Completar</string>
+    <string name="notification_action_in_progress">En Progreso</string>
 
 </resources>

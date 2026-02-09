@@ -127,6 +127,13 @@ public class ActividadFormViewModel extends ViewModel {
         navegarAtras.setValue(false);
     }
 
+    public void deleteCurrentActividad() {
+        if (actividadExistente != null) {
+            repository.deleteActividad(actividadExistente);
+            navegarAtras.setValue(true);
+        }
+    }
+
     private boolean validarTipoActividad() {
         if (tipoActividad.getValue() == null || tipoActividad.getValue().trim().isEmpty()) {
             tipoActividadError.setValue("Debe seleccionar un tipo de actividad");

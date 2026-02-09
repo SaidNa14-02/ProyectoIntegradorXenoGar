@@ -45,75 +45,21 @@
                     android:background="@drawable/capsule_background"
                     android:fontFamily="@font/poppins"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
+                    android:paddingVertical="10dp"
                     android:textColor="@color/black"
                     android:textSize="25sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     app:layout_constraintBottom_toBottomOf="@id/imageViewDetailCultivo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="Titulo cultivo" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonEditCultivoImage"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/icon_background_circle"
-                    android:contentDescription="@string/edit_cultivo_image_desc"
-                    android:padding="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_edit" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/cultivoProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:max="100"
-            android:progress="60"
-            android:rotation="-90"
-            app:indicatorColor="@color/verde_progress"
-            app:indicatorSize="180dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/headerCard"
-            app:trackColor="#E0E0E0"
-            app:trackCornerRadius="10dp"
-            app:trackThickness="12dp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@id/cultivoProgressBar"
-            app:layout_constraintEnd_toEndOf="@id/cultivoProgressBar"
-            app:layout_constraintStart_toStartOf="@id/cultivoProgressBar"
-            app:layout_constraintTop_toTopOf="@id/cultivoProgressBar">
-
-            <TextView
-                android:id="@+id/textViewProgressPercentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                tools:text="65%" />
-
-            <TextView
-                android:id="@+id/textViewProgressLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="@string/progress_circle_label"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
-        </LinearLayout>
 
         <!-- TARJETA DE EXISTENCIAS -->
         <androidx.cardview.widget.CardView
@@ -126,7 +72,7 @@
             app:cardCornerRadius="16dp"
             app:layout_constraintEnd_toStartOf="@+id/cardTipo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cultivoProgressBar">
+            app:layout_constraintTop_toBottomOf="@+id/headerCard">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -136,7 +82,7 @@
                     android:id="@+id/textViewExistenciasLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins"
                     android:text="@string/existencias_label"
                     android:textSize="16sp"
@@ -217,6 +163,10 @@
                     android:id="@+id/tipo_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
                     android:text="@string/tipo_label" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -251,6 +201,10 @@
                     android:id="@+id/fecha_inicio_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
                     android:text="@string/fecha_inicio_label" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -285,6 +239,10 @@
                     android:id="@+id/prox_cosecha_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
                     android:text="@string/proxima_cosecha_label" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -329,7 +287,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/verde_progress"
             android:fontFamily="@font/poppins"
             android:text="@string/editar_cultivo_button_label"
@@ -343,7 +301,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:backgroundTint="@color/button_red_color"
             android:fontFamily="@font/poppins"
             android:text="@string/eliminar_cultivo_button_label"
