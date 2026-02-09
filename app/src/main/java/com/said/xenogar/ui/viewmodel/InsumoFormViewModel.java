@@ -21,7 +21,7 @@ public class InsumoFormViewModel extends ViewModel {
     public final MutableLiveData<String> cantidadActual = new MutableLiveData<>();
     public final MutableLiveData<String> unidad = new MutableLiveData<>();
     public final MutableLiveData<String> puntoReorden = new MutableLiveData<>();
-    public final MutableLiveData<Boolean> isUnidadSelectionEnabled = new MutableLiveData<>(true); // Inicialmente habilitado
+    public final MutableLiveData<Boolean> isUnidadSelectionEnabled = new MutableLiveData<>(true);
 
     private final MutableLiveData<String> nombreError = new MutableLiveData<>();
     private final MutableLiveData<String> tipoError = new MutableLiveData<>();
@@ -36,6 +36,7 @@ public class InsumoFormViewModel extends ViewModel {
     private final AgroRepository repository;
     private LiveData<Insumo> insumoLiveData;
     private final Observer<Insumo> insumoObserver;
+    private final Observer<String> tipoObserver;
 
     @Inject
     public InsumoFormViewModel(AgroRepository repository, SavedStateHandle savedStateHandle) {
@@ -56,17 +57,18 @@ public class InsumoFormViewModel extends ViewModel {
         }
 
         // Observar cambios en el tipo para habilitar/deshabilitar la selección de unidad
-        tipo.observeForever(selectedTipo -> {
+        tipoObserver = selectedTipo -> {
             boolean enabled = !Insumo.TipoInsumo.HERRAMIENTA.name().equals(selectedTipo);
             isUnidadSelectionEnabled.setValue(enabled);
             if (!enabled) {
-                unidad.setValue(null); // Limpiar la unidad si se selecciona HERRAMIENTA
+                unidad.setValue(null);
             }
-        });
+        };
+        tipo.observeForever(tipoObserver);
     }
 
     public void cargarInsumo(long id) {
-        this.insumoId = id; // Asegurarse de que el insumoId del ViewModel esté configurado para el modo de edición
+        this.insumoId = id;
         if (insumoLiveData != null) {
             insumoLiveData.removeObserver(insumoObserver);
         }
@@ -80,6 +82,7 @@ public class InsumoFormViewModel extends ViewModel {
         if (insumoLiveData != null) {
             insumoLiveData.removeObserver(insumoObserver);
         }
+        tipo.removeObserver(tipoObserver);
     }
 
     public LiveData<String> getNombreError() { return nombreError; }
@@ -170,7 +173,6 @@ public class InsumoFormViewModel extends ViewModel {
     }
 
     private boolean validarUnidad() {
-        // La unidad es obligatoria a menos que sea una HERRAMIENTA
         if (tipo.getValue() != null && Insumo.TipoInsumo.valueOf(tipo.getValue()) == Insumo.TipoInsumo.HERRAMIENTA) {
             unidadError.setValue(null);
             return true;

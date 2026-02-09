@@ -53,7 +53,7 @@ public class CultivoListFragment extends Fragment implements CultivoListAdapter.
 
         binding.fabAddCultivo.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main, CultivoFormFragment.newInstance(null))
+                    .replace(R.id.fragment_container, CultivoFormFragment.newInstance(null))
                     .addToBackStack(null)
                     .commit();
         });
@@ -74,7 +74,7 @@ public class CultivoListFragment extends Fragment implements CultivoListAdapter.
     @Override
     public void onItemClickCultivo(Cultivo cultivo) {
         getParentFragmentManager().beginTransaction()
-                .replace(R.id.main, CultivoDetailFragment.newInstance(cultivo.getId()))
+                .replace(R.id.fragment_container, CultivoPagerFragment.newInstance(cultivo.getId()))
                 .addToBackStack(null)
                 .commit();
     }

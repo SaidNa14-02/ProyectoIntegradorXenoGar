@@ -44,7 +44,7 @@ public class CultivoFormViewModel extends ViewModel {
     @Inject
     public CultivoFormViewModel(AgroRepository repository) {
         this.repository = repository;
-        this.cultivoObserver = cultivo -> {
+        this.cultivoObserver = cultivo ->   {
             if (cultivo != null) {
                 this.cultivoExistente = cultivo;
                 nombre.setValue(cultivo.getNombre());

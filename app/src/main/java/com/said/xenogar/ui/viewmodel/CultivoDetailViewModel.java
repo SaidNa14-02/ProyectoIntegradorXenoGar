@@ -22,11 +22,13 @@ public class CultivoDetailViewModel extends ViewModel {
     public CultivoDetailViewModel(AgroRepository repository, SavedStateHandle savedStateHandle) {
         this.repository = repository;
         this.savedStateHandle = savedStateHandle;
-        Long cultivoId = savedStateHandle.get(CultivoDetailFragment.ARG_CUlTIVO_ID);
+        Long cultivoId = savedStateHandle.get(CultivoDetailFragment.ARG_CULTIVO_ID);
         if (cultivoId != null && cultivoId != 0L) {
             this.cultivo = repository.getCultivo(cultivoId);
         } else {
-            this.cultivo = null;
+            androidx.lifecycle.MutableLiveData<Cultivo> emptyCultivo = new androidx.lifecycle.MutableLiveData<>();
+            emptyCultivo.setValue(null);
+            this.cultivo = emptyCultivo;
         }
 
     }

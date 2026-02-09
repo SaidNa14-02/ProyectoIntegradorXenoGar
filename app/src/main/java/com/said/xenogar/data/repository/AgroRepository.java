@@ -6,6 +6,7 @@ import com.said.xenogar.data.local.dao.ActividadDao;
 import com.said.xenogar.data.local.dao.CultivoDao;
 import com.said.xenogar.data.local.dao.InsumoDao;
 import com.said.xenogar.data.local.entity.Actividad;
+import com.said.xenogar.data.local.entity.ActividadConInsumo;
 import com.said.xenogar.data.local.entity.ActividadInsumo;
 import com.said.xenogar.data.local.entity.Cultivo;
 import com.said.xenogar.data.local.entity.Insumo;
@@ -60,6 +61,10 @@ public class AgroRepository {
         return actividadDao.getActividadById(actividadId);
     }
 
+    public LiveData<ActividadConInsumo> getActividadConInsumos(long actividadId) {
+        return actividadDao.getActividadConInsumos(actividadId);
+    }
+
     public void insertActividadConInsumos(Actividad actividad, List<ActividadInsumo> insumos){
         executorService.execute(()-> actividadDao.insertActividadConInsumos(actividad, insumos));
     }
@@ -76,6 +81,26 @@ public class AgroRepository {
         executorService.execute(() -> actividadDao.deleteInsumosActividad(insumos));
     }
 
+    // Method to consume insumos when an activity is completed
+    public void consumeInsumosForCompletedActividad(long actividadId) {
+        executorService.execute(() -> {
+            ActividadConInsumo actividadConInsumo = actividadDao.getActividadConInsumosSync(actividadId);
+
+            if (actividadConInsumo != null && actividadConInsumo.insumos != null) {
+                for (Insumo insumoConsumido : actividadConInsumo.insumos) { // Iterate over Insumo objects
+                    // Fetch the ActividadInsumo to get cantidadUtilizada
+                    ActividadInsumo actInsumoData = actividadDao.getActividadInsumoSync(actividadId, insumoConsumido.getId());
+
+                    if (insumoConsumido != null && actInsumoData != null) {
+                        double nuevaCantidad = insumoConsumido.getCantidadActual() - actInsumoData.getCantidadUtilizada();
+                        insumoConsumido.setCantidadActual(nuevaCantidad);
+                        insumoDao.update(insumoConsumido); // Update insumo using DAO
+                    }
+                }
+            }
+        });
+    }
+
     //Metodos para el manejo de data de Insumos
     public LiveData<List<Insumo>> getAllInsumos() {
         return insumoDao.getAllInsumos();
@@ -89,6 +114,7 @@ public class AgroRepository {
         executorService.execute(() -> insumoDao.insert(insumo));
     }
 
+    // NEW: Method to update an Insumo
     public void updateInsumo(Insumo insumo) {
         executorService.execute(() -> insumoDao.update(insumo));
     }

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-// import com.bumptech.glide.Glide; // Descomentar si usas Glide
 import com.said.xenogar.R;
 import com.said.xenogar.databinding.FragmentCultivoDetailBinding;
 import com.said.xenogar.ui.viewmodel.CultivoDetailViewModel;
@@ -23,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CultivoDetailFragment extends Fragment {
-    public static final String ARG_CUlTIVO_ID = "cultivoId";
+    public static final String ARG_CULTIVO_ID = "cultivoId";
     private CultivoDetailViewModel viewModel;
     private FragmentCultivoDetailBinding binding;
 
@@ -68,19 +67,6 @@ public class CultivoDetailFragment extends Fragment {
                 }
 
                 binding.textViewCultivoDescription.setText(cultivo.getDescripcion());
-
-                // Actualizar barra de progreso y porcentaje
-                // Asumiendo que tu modelo de cultivo tiene un método getProgreso()
-                // int progress = cultivo.getProgreso();
-                // binding.cultivoProgressBar.setProgress(progress);
-                // binding.textViewProgressPercentage.setText(getString(R.string.percentage_format, progress));
-
-
-                // Cargar la imagen del cultivo usando una librería como Glide
-                // Asumiendo que tu modelo tiene un método getImageUrl()
-                // Glide.with(this)
-                //      .load(cultivo.getImageUrl())
-                //      .into(binding.imageViewDetailCultivo);
             }
         });
     }
@@ -94,15 +80,13 @@ public class CultivoDetailFragment extends Fragment {
             viewModel.decreaseStock();
         });
 
-        binding.imageButtonEditCultivoImage.setOnClickListener(v -> {
-            // viewModel.onEditImage();
-        });
-
         binding.editCultivoButton.setOnClickListener(v -> {
             if (viewModel.getDetalleCultivo().getValue() != null) {
                 Long cultivoId = viewModel.getDetalleCultivo().getValue().getId();
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.main, CultivoFormFragment.newInstance(cultivoId))
+                // Usamos requireActivity().getSupportFragmentManager() porque este fragmento está anidado
+                // y el contenedor fragment_container pertenece al layout de la Activity.
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, CultivoFormFragment.newInstance(cultivoId))
                         .addToBackStack(null)
                         .commit();
             }
@@ -124,7 +108,7 @@ public class CultivoDetailFragment extends Fragment {
     public static CultivoDetailFragment newInstance(Long cultivoId){
         CultivoDetailFragment fragment = new CultivoDetailFragment();
         Bundle args = new Bundle();
-        args.putLong(ARG_CUlTIVO_ID, cultivoId);
+        args.putLong(ARG_CULTIVO_ID, cultivoId);
         fragment.setArguments(args);
         return fragment;
     }

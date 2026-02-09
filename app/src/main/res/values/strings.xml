@@ -16,6 +16,22 @@
     <string name="edit_cultivo_image_desc">Editar Imagen del Cultivo"</string>
     <string name="progress_circle_label">Progreso hasta la recolección:</string>
     <string name="cultivo_description_label">Descripción del Cultivo</string>
+    <!-- Para el formulario de nueva actividad -->
+    <string name="actividad_form_title_edit">Editar Actividad</string>
+    <string name="actividad_form_submitbutton_text_update">Actualizar Actividad</string>
+    <string name="actividad_form_title">Datos para la nueva actividad</string>
+    <string name="actividad_form_tipo_actividad_label">Tipo de Actividad</string>
+    <string name="tipo_actividad_hint">Seleccione el tipo de actividad</string>
+    <string name="actividad_form_prioridad_label">Prioridad</string>
+    <string name="prioridad_actividad_hint">Seleccione la prioridad</string>
+    <string name="actividad_form_fecha_label">Fecha de la Actividad</string>
+    <string name="actividad_form_date_hint">dd/mm/aaaa</string>
+    <string name="actividad_form_estado_label">Estado de la Actividad</string>
+    <string name="estado_actividad_hint">Seleccione el estado</string>
+    <string name="actividad_form_descripcion_label">Descripción</string>
+    <string name="hint_descripcion_actividad_form">Ej: Riego profundo (Opcional)</string>
+    <string name="actividad_form_submitbutton_text">Guardar Actividad</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

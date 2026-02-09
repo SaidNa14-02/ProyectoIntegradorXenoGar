@@ -26,14 +26,14 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.goToCultivosButton.setOnClickListener(v->{
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main, new CultivoListFragment())
+                    .replace(R.id.fragment_container, new CultivoListFragment())
                     .addToBackStack(null)
                     .commit();
         });
 
         binding.goToInsumosButton.setOnClickListener(v->{
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.main, new InsumoListFragment())
+                    .replace(R.id.fragment_container, new InsumoListFragment())
                     .addToBackStack(null)
                     .commit();
         });
