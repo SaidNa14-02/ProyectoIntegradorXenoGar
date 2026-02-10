@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
 
 
 
-        binding.goToCultivosButton.setOnClickListener(v -> {
+        binding.irACultivos.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new CultivoListFragment())
                     .addToBackStack(null)
@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
 
                     if (jsonSummary != null && !jsonSummary.isEmpty()) {
                         // Enviar JSON a la API
-                        Log.d(TAG, "Sending JSON to API...");
+
                         RequestBody body = RequestBody.create(
                                 MediaType.parse("application/json"),
                                 jsonSummary
@@ -96,42 +96,28 @@ public class HomeFragment extends Fragment {
                         Response<ResponseBody> response = call.execute();
 
                         if (response.isSuccessful() && response.body() != null) {
-                            Log.d(TAG, "API response successful, saving PDF...");
+
                             // Guardar el PDF
                             byte[] pdfBytes = response.body().bytes();
                             File pdfFile = savePdfToFile(pdfBytes);
 
                             requireActivity().runOnUiThread(() -> {
-                                Toast.makeText(requireContext(),
-                                        "PDF generado exitosamente",
-                                        Toast.LENGTH_LONG).show();
                                 // Abrir el PDF
                                 openPdf(pdfFile);
                             });
                         } else {
                             Log.e(TAG, "API error: " + response.code() + " - " + response.message());
-                            requireActivity().runOnUiThread(() ->
-                                    Toast.makeText(requireContext(),
-                                            "Error en la API: " + response.code(),
-                                            Toast.LENGTH_LONG).show()
-                            );
+                            requireActivity().runOnUiThread(() -> {
+                                // Error handling, no Toast.
+                            });
                         }
                     } else {
                         Log.e(TAG, "JSON is null or empty");
-                        requireActivity().runOnUiThread(() ->
-                                Toast.makeText(requireContext(),
-                                        "Error: No se pudo generar el resumen JSON",
-                                        Toast.LENGTH_LONG).show()
-                        );
+
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "Error calling API or generating PDF", e);
-                    requireActivity().runOnUiThread(() ->
-                            Toast.makeText(requireContext(),
-                                    "Error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show()
-                    );
-                }
+                                    }
             });
         });
     }
@@ -149,7 +135,7 @@ public class HomeFragment extends Fragment {
         fos.write(pdfBytes);
         fos.close();
 
-        Log.d(TAG, "PDF saved to: " + pdfFile.getAbsolutePath());
+
         return pdfFile;
     }
 
@@ -166,9 +152,7 @@ public class HomeFragment extends Fragment {
             startActivity(intent);
         } catch (Exception e) {
             Log.e(TAG, "Error opening PDF", e);
-            Toast.makeText(requireContext(),
-                    "No se pudo abrir el PDF. Archivo guardado en: " + pdfFile.getAbsolutePath(),
-                    Toast.LENGTH_LONG).show();
+
         }
     }
 

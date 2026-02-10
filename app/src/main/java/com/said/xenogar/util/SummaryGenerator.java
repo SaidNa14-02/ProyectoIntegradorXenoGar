@@ -70,12 +70,12 @@ public class SummaryGenerator {
      * @return A JSON string representing the weekly summary, or null if an error occurs.
      */
     public String generateWeeklySummaryJson() {
-        Log.d(TAG, "Generating weekly summary JSON.");
+
         try {
             long startOfWeek = getStartOfWeekMillis();
             long endOfWeek = getEndOfWeekMillis();
 
-            Log.d(TAG, "Current week: " + new Date(startOfWeek) + " to " + new Date(endOfWeek));
+
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String summaryDateRange = "Reporte Semanal: " + dateFormat.format(new Date(startOfWeek)) + " - " + dateFormat.format(new Date(endOfWeek));
@@ -88,7 +88,7 @@ public class SummaryGenerator {
                 return null;
             }
 
-            Log.d(TAG, "Retrieved " + weeklyActivities.size() + " weekly activities and " + allCultivos.size() + " cultivations.");
+
 
             Map<Long, Cultivo> cultivoMap = new HashMap<>();
             for (Cultivo cultivo : allCultivos) {
@@ -126,7 +126,7 @@ public class SummaryGenerator {
             summaryJson.put("cultivos", cultivosArray);
 
             String finalJson = summaryJson.toString(2);
-            Log.d(TAG, "Generated JSON Summary:\n" + finalJson);
+
             return finalJson;
         } catch (JSONException e) {
             Log.e(TAG, "Error generating JSON summary: " + e.getMessage(), e);

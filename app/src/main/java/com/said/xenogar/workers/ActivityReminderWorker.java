@@ -36,18 +36,18 @@ public class ActivityReminderWorker extends Worker {
         super(context, workerParams);
         this.repository = repository;
         this.notificationHelper = notificationHelper;
-        Log.d(TAG, "Worker instantiated successfully!");
+
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        Log.d(TAG, "===== Starting Activity Reminder Worker =====");
+
         LocalDate today = LocalDate.now();
-        Log.d(TAG, "Today's date: " + today);
+
 
         try {
-            Log.d(TAG, "Fetching activities and cultivos...");
+
             List<Actividad> allActividades = repository.getAllActividadesSync();
             List<Cultivo> allCultivosSync = repository.getAllCultivosSync();
 
@@ -57,21 +57,21 @@ public class ActivityReminderWorker extends Worker {
                 return Result.retry();
             }
 
-            Log.d(TAG, "Retrieved " + allActividades.size() + " activities and " + allCultivosSync.size() + " cultivos.");
+
 
             int notificationCount = 0;
             for (Actividad actividad : allActividades) {
-                Log.d(TAG, "Processing activity: " + actividad.getId() + " - " + actividad.getActividad());
+
 
                 LocalDate actividadDate = new Date(actividad.getFecha()).toInstant()
                         .atZone(ZoneId.systemDefault()).toLocalDate();
-                Log.d(TAG, "Activity date: " + actividadDate + ", Status: " + actividad.getEstado());
+
 
                 boolean isDueOrOverdue = actividadDate.isBefore(today) || actividadDate.isEqual(today);
                 boolean isPendingOrInProgress = actividad.getEstado() == Actividad.Estado.PENDIENTE ||
                         actividad.getEstado() == Actividad.Estado.EN_PROGRESO;
 
-                Log.d(TAG, "isDueOrOverdue: " + isDueOrOverdue + ", isPendingOrInProgress: " + isPendingOrInProgress);
+
 
                 if (isDueOrOverdue && isPendingOrInProgress) {
                     Cultivo associatedCultivo = null;
@@ -84,8 +84,7 @@ public class ActivityReminderWorker extends Worker {
 
                     if (associatedCultivo != null) {
                         int notificationId = actividad.getId().intValue();
-                        Log.d(TAG, ">>> SHOWING NOTIFICATION for activity: " + actividad.getId() +
-                                " - Cultivo: " + associatedCultivo.getNombre());
+
                         notificationHelper.showActivityReminderNotification(notificationId, associatedCultivo, actividad);
                         notificationCount++;
                     } else {
@@ -95,7 +94,7 @@ public class ActivityReminderWorker extends Worker {
                 }
             }
 
-            Log.d(TAG, "===== Worker finished successfully. Sent " + notificationCount + " notifications =====");
+
             return Result.success();
         } catch (Exception e) {
             Log.e(TAG, "Error in Activity Reminder Worker: " + e.getMessage(), e);
