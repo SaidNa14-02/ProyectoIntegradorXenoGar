@@ -24,6 +24,10 @@ import com.said.xenogar.databinding.FragmentActividadFormBinding;
 import com.said.xenogar.ui.viewmodel.ActividadFormViewModel;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -178,8 +182,10 @@ public class ActividadFormFragment extends Fragment {
                     .build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                String formattedDate = sdf.format(new Date(selection));
+                // Convert UTC milliseconds to LocalDate in UTC, then format
+                LocalDate selectedDate = Instant.ofEpochMilli(selection).atZone(ZoneOffset.UTC).toLocalDate();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.getDefault());
+                String formattedDate = selectedDate.format(formatter);
                 binding.inputActividadFecha.setText(formattedDate);
                 viewModel.fecha.setValue(formattedDate);
             });

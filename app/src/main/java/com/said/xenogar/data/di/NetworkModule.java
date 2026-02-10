@@ -18,7 +18,7 @@ public class NetworkModule {
     @Singleton
     public Retrofit provideRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl("https://xenogar-pdf-api.onrender.com/")
+                .baseUrl("https://apireporte.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

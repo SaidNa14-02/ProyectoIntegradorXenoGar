@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface PdfApiService {
 
-    @POST("/generate-pdf") // Cambia por tu endpoint
+    @POST("/generate-pdf")
     Call<ResponseBody> generatePdfFromJson(
             @Body RequestBody jsonBody
     );
