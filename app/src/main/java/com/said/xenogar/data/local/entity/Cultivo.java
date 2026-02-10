@@ -13,7 +13,7 @@ public class Cultivo {
         ORNAMENTAL("Ornamental"),
         FRUTAL("Frutal"),
         AROMATICO("Aromático"),
-        ALIMENTARIA("Alimentaria"),
+        ALIMENTARIA("Alimentario"),
         MEDICINAL("Medicinal"),
         INDEFINIDO("Indefinido");
 

@@ -101,9 +101,9 @@ public class CultivoListAdapter extends ListAdapter<Cultivo, CultivoListAdapter.
             case ORNAMENTAL:
                 return R.drawable.decorative_icon;
             case ALIMENTARIA:
-                return R.drawable.frutal_tree_icon; // Reusing for Alimentaria, adjust if a more specific icon is added later
+                return R.drawable.frutal_tree_icon;
             case MEDICINAL:
-                return R.drawable.other_icon; // Placeholder for Medicinal, adjust if a specific icon is added later
+                return R.drawable.other_icon;
             case INDEFINIDO:
                 return R.drawable.other_icon;
             default:
