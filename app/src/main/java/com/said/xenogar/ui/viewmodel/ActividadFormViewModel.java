@@ -13,6 +13,7 @@ import com.said.xenogar.ui.view.ActividadFormFragment;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
@@ -67,7 +68,8 @@ public class ActividadFormViewModel extends ViewModel {
                 if (actividad.getFecha() == 0L) { // Assuming 0L means no date set
                     fecha.setValue(LocalDate.now().format(formatter));
                 } else {
-                    fecha.setValue(Instant.ofEpochMilli(actividad.getFecha()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
+                    // Convert UTC milliseconds to LocalDate in UTC, then format
+                    fecha.setValue(Instant.ofEpochMilli(actividad.getFecha()).atZone(ZoneOffset.UTC).toLocalDate().format(formatter));
                 }
             }
         };
@@ -228,7 +230,7 @@ public class ActividadFormViewModel extends ViewModel {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.parse(fecha.getValue(), formatter);
-        long fechaParaDb = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long fechaParaDb = localDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
 
         Actividad actividadAGuardar;
 

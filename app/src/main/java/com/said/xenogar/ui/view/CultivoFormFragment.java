@@ -20,6 +20,10 @@ import com.said.xenogar.databinding.FragmentCultivoFormBinding;
 import com.said.xenogar.ui.viewmodel.CultivoFormViewModel;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
@@ -118,8 +122,10 @@ public class CultivoFormFragment extends Fragment {
                     .build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                String formattedDate = sdf.format(new Date(selection));
+                // Convert UTC milliseconds to LocalDate in UTC, then format
+                LocalDate selectedDate = Instant.ofEpochMilli(selection).atZone(ZoneOffset.UTC).toLocalDate();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.getDefault());
+                String formattedDate = selectedDate.format(formatter);
                 binding.inputCultivoDate.setText(formattedDate);
                 viewModel.fecha.setValue(formattedDate);
             });
@@ -134,8 +140,10 @@ public class CultivoFormFragment extends Fragment {
                     .build();
 
             datePicker.addOnPositiveButtonClickListener(selection -> {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                String formattedDate = sdf.format(new Date(selection));
+                // Convert UTC milliseconds to LocalDate in UTC, then format
+                LocalDate selectedDate = Instant.ofEpochMilli(selection).atZone(ZoneOffset.UTC).toLocalDate();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.getDefault());
+                String formattedDate = selectedDate.format(formatter);
                 binding.inputCultivoDateEnd.setText(formattedDate);
                 viewModel.fechaFin.setValue(formattedDate);
             });

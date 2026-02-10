@@ -11,6 +11,7 @@ import com.said.xenogar.data.repository.AgroRepository;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
@@ -53,10 +54,10 @@ public class CultivoFormViewModel extends ViewModel {
                 descripcion.setValue(cultivo.getDescripcion());
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                fecha.setValue(Instant.ofEpochMilli(cultivo.getFechaInicio()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
+                fecha.setValue(Instant.ofEpochMilli(cultivo.getFechaInicio()).atZone(ZoneOffset.UTC).toLocalDate().format(formatter));
                 
                 if (cultivo.getFechaFinalizacion() > 0) {
-                    fechaFin.setValue(Instant.ofEpochMilli(cultivo.getFechaFinalizacion()).atZone(ZoneId.systemDefault()).toLocalDate().format(formatter));
+                    fechaFin.setValue(Instant.ofEpochMilli(cultivo.getFechaFinalizacion()).atZone(ZoneOffset.UTC).toLocalDate().format(formatter));
                 }
             }
         };
@@ -127,12 +128,12 @@ public class CultivoFormViewModel extends ViewModel {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate localDate = LocalDate.parse(fecha.getValue(), formatter);
-        long fechaParaDb = localDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long fechaParaDb = localDate.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
         cultivo.setFechaInicio(fechaParaDb);
 
         if (fechaFin.getValue() != null && !fechaFin.getValue().trim().isEmpty()) {
             LocalDate localDateFin = LocalDate.parse(fechaFin.getValue(), formatter);
-            long fechaFinParaDb = localDateFin.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            long fechaFinParaDb = localDateFin.atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
             cultivo.setFechaFinalizacion(fechaFinParaDb);
         } else {
             cultivo.setFechaFinalizacion(0);
