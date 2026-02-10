@@ -2,4 +2,22 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_gray">#CFCECE</color>
+    <color name="card_background_verde_pastel">#E8F5E9</color>
+    <color name="capsule_background_color_gris">#B3FFFFFF</color>
+    <color name="gris_claro">#E0E0E0</color>
+    <color name="verde_progress">#5BDC41</color>
+    <color name="gradiente_form_inicio">#7EF29D</color>
+    <color name="gradiente_form_final">#0F68A9</color>
+    <color name="button_red_color">#d62828</color>
+    <color name="naranja">#e85d04</color>
+
+    <!-- Nuevos colores -->
+    <color name="white_a70">#B3FFFFFF</color>
+    <color name="green_dark">#004D40</color>
+    <color name="green_light">#A5D6A7</color>
+    <color name="green_accent">#69F0AE</color>
+    <color name="blue_grey">#546E7A</color>
+    <color name="blue_grey_light">#B0BEC5</color>
+
 </resources>

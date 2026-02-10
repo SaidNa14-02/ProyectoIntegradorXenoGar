@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.hilt.android.gradle)
@@ -6,9 +5,7 @@ plugins {
 
 android {
     namespace = "com.said.xenogar"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.said.xenogar"
@@ -16,6 +13,7 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,9 +27,15 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        isCoreLibraryDesugaringEnabled = true
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -40,25 +44,29 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
     implementation(libs.hilt.android)
-    annotationProcessor(libs.hilt.compiler)
+    annotationProcessor("com.google.dagger:hilt-compiler:2.59.1")
 
-    //Base de datos
+    // Base de datos
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler)
+    annotationProcessor("androidx.room:room-compiler:2.8.4")
 
-    //Navegacion
+    // Navegación
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
-    //ViewModel y LiveData
+    // ViewModel y LiveData
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
 
-    //API
+    // WorkManager
     implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.hilt.work)
+    annotationProcessor("androidx.hilt:hilt-compiler:1.3.0")
+
+    // API
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
 

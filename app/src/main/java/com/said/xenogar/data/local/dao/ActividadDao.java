@@ -2,6 +2,7 @@ package com.said.xenogar.data.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -9,7 +10,6 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.said.xenogar.data.local.entity.Actividad;
-import com.said.xenogar.data.local.entity.ActividadInsumo;
 
 import java.util.List;
 
@@ -19,31 +19,31 @@ public interface ActividadDao {
     // --- Operaciones para Actividad ---
 
     @Update
-    void updateActividad(Actividad actividad);
+    void update(Actividad actividad);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertActividad(Actividad actividad);
+    long insert(Actividad actividad);
 
     @Query("SELECT * FROM actividades WHERE cultivoId = :cultivoId ORDER BY fecha DESC")
     LiveData<List<Actividad>> getActividadesByCultivoId(long cultivoId);
 
     @Query("SELECT * FROM actividades WHERE id = :actividadId")
     LiveData<Actividad> getActividadById(long actividadId);
+    @Query("SELECT * FROM actividades")
+    LiveData<List<Actividad>> getAllActividades();
 
-    // --- Operaciones para la relación Actividad-Insumo ---
+    @Query("SELECT * FROM actividades WHERE fecha BETWEEN :startDate AND :endDate")
+    LiveData<List<Actividad>> getActividadesBetweenDates(String startDate, String endDate);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertActividadInsumo(ActividadInsumo relacion);
+    @Delete
+    void delete(Actividad actividad);
 
-    @Transaction
-    default void insertActividadConInsumos(Actividad actividad, List<ActividadInsumo> insumos) {
-        long actividadId = insertActividad(actividad);
+    @Query("SELECT * FROM actividades")
+    List<Actividad> getAllActividadesSync();
 
-        if (insumos != null) {
-            for (ActividadInsumo relacion : insumos) {
-                relacion.setActividadId(actividadId);
-                insertActividadInsumo(relacion);
-            }
-        }
-    }
+    @Query("SELECT * FROM actividades WHERE id = :actividadId")
+    Actividad getActividadByIdSync(long actividadId);
+
+    @Query("SELECT * FROM actividades WHERE fecha BETWEEN :startDateMillis AND :endDateMillis ORDER BY fecha ASC")
+    List<Actividad> getActividadesInDateRangeSync(long startDateMillis, long endDateMillis);
 }

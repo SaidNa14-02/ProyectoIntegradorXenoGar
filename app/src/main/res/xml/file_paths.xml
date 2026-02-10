@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Para archivos en getExternalFilesDir() -->
+    <external-files-path
+        name="pdfs"
+        path="pdfs/" />
+
+    <!-- Para archivos en el directorio raíz de external files -->
+    <external-files-path
+        name="external_files"
+        path="." />
+
+    <!-- Para archivos en el cache (opcional) -->
+    <cache-path
+        name="cache"
+        path="." />
+</paths>

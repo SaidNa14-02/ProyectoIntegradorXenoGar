@@ -68,6 +68,8 @@ public class Actividad {
     private String descripcion;
     private Estado estado;
 
+    public Actividad() {}
+
     private Actividad(Long cultivoId, TipoActividad actividad, Prioridad prioridad, long fecha, String descripcion, Estado estado){
         this.cultivoId = cultivoId;
         this.actividad = actividad;
@@ -211,5 +213,3 @@ public class Actividad {
         }
     }
 }
-
-

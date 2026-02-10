@@ -13,6 +13,8 @@ public class Cultivo {
         ORNAMENTAL("Ornamental"),
         FRUTAL("Frutal"),
         AROMATICO("Aromático"),
+        ALIMENTARIA("Alimentario"),
+        MEDICINAL("Medicinal"),
         INDEFINIDO("Indefinido");
 
         private final String displayName;
@@ -98,11 +100,11 @@ public class Cultivo {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    private int getExistencias() {
+    public int getExistencias() {
         return existencias;
     }
 
-    private void setExistencias(int existencias) {
+    public void setExistencias(int existencias) {
         this.existencias = existencias;
     }
 }

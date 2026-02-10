@@ -2,10 +2,25 @@ package com.said.xenogar;
 
 import android.app.Application;
 
-import com.said.xenogar.data.local.AppDatabase;
+import androidx.annotation.NonNull;
+import androidx.hilt.work.HiltWorkerFactory;
+import androidx.work.Configuration;
 
-public class XenoApp extends Application {
-    public AppDatabase getDatabase(){
-        return AppDatabase.getAppDatabase(this);
+import javax.inject.Inject;
+
+import dagger.hilt.android.HiltAndroidApp;
+
+@HiltAndroidApp
+public class XenoApp extends Application implements Configuration.Provider {
+
+    @Inject
+    HiltWorkerFactory workerFactory;
+
+    @NonNull
+    @Override
+    public Configuration getWorkManagerConfiguration() {
+        return new Configuration.Builder()
+                .setWorkerFactory(workerFactory)
+                .build();
     }
 }

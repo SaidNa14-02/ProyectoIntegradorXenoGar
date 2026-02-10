@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/headerCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageViewDetailCultivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:contentDescription="@string/cultivo_image_description"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/cultivo_detail_view_banner" />
+
+                <TextView
+                    android:id="@+id/textViewDetailCultivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/capsule_background"
+                    android:fontFamily="@font/poppins"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewDetailCultivo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="Titulo cultivo" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+        <!-- TARJETA DE EXISTENCIAS -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardExistencias"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/cardTipo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerCard">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textViewExistenciasLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/existencias_label"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonDisminuirExistencias"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/disminuir_existencias_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textViewExistenciasCultivo"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewExistenciasLabel"
+                    app:srcCompat="@drawable/ic_minus" />
+
+                <TextView
+                    android:id="@+id/textViewExistenciasCultivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/imageButtonDisminuirExistencias"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButtonAumentarExistencias"
+                    app:layout_constraintStart_toEndOf="@id/imageButtonDisminuirExistencias"
+                    app:layout_constraintTop_toTopOf="@id/imageButtonDisminuirExistencias"
+                    tools:text="10" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonAumentarExistencias"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/aumentar_existencias_desc"
+                    app:layout_constraintBottom_toBottomOf="@id/imageButtonDisminuirExistencias"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewExistenciasCultivo"
+                    app:layout_constraintTop_toTopOf="@id/imageButtonDisminuirExistencias"
+                    app:srcCompat="@drawable/ic_plus" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- TARJETA DE TIPO -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardTipo"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardExistencias"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardExistencias"
+            app:layout_constraintTop_toTopOf="@+id/cardExistencias">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tipo_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="Hortaliza" />
+
+                <TextView
+                    android:id="@+id/tipo_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
+                    android:text="@string/tipo_label" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- TARJETA DE FECHA DE INICIO -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardFechaInicio"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardExistencias"
+            app:layout_constraintStart_toStartOf="@+id/cardExistencias"
+            app:layout_constraintTop_toBottomOf="@+id/cardExistencias">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fecha_inicio_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="15/03/24" />
+
+                <TextView
+                    android:id="@+id/fecha_inicio_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
+                    android:text="@string/fecha_inicio_label" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- TARJETA DE PRÓXIMA COSECHA -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardProxCosecha"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardFechaInicio"
+            app:layout_constraintEnd_toEndOf="@+id/cardTipo"
+            app:layout_constraintStart_toStartOf="@+id/cardTipo"
+            app:layout_constraintTop_toTopOf="@+id/cardFechaInicio">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/prox_cosecha_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="20/06/24" />
+
+                <TextView
+                    android:id="@+id/prox_cosecha_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:layout_marginTop="4dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_gray"
+                    android:text="@string/proxima_cosecha_label" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_descripción_cultivo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="@id/headerCard"
+            app:layout_constraintStart_toStartOf="@id/headerCard"
+            app:layout_constraintTop_toBottomOf="@id/cardFechaInicio">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:text="@string/cultivo_description_label"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewCultivoDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="15sp"
+                    tools:text="Aquí va la descripción del cultivo." />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/edit_cultivo_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/verde_progress"
+            android:fontFamily="@font/poppins"
+            android:text="@string/editar_cultivo_button_label"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_descripción_cultivo" />
+
+        <Button
+            android:id="@+id/delete_cultivo_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/button_red_color"
+            android:fontFamily="@font/poppins"
+            android:text="@string/eliminar_cultivo_button_label"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_cultivo_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

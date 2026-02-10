@@ -1,3 +1,69 @@
 <resources>
     <string name="app_name">XenoGar</string>
+
+    <!-- Para la lista de cultivos -->
+    <string name="cultivo_image_description">Imagen del Cultivo</string>
+    <string name="see_details_button">Ver Detalles</string>
+    <string name="add_new_cultivo">Agregar Nuevo Cultivo</string>
+    <string name="agregar_cultivo">Agregar Cultivo</string>
+    <string name="titulo_lista_cultivos">Mis Cultivos</string>
+
+    <!-- Para los detalles del cultivo -->
+    <string name="existencias_label">Existencias</string>
+    <string name="disminuir_existencias_desc">Disminuir Existencias</string>
+    <string name="aumentar_existencias_desc">Aumentar Existencias</string>
+    <string name="tipo_label">Tipo</string>
+    <string name="fecha_inicio_label">Fecha de Inicio</string>
+    <string name="proxima_cosecha_label">Próxima Cosecha</string>
+    <string name="edit_cultivo_image_desc">Editar Imagen del Cultivo"</string>
+    <string name="progress_circle_label">Progreso hasta la recolección:</string>
+    <string name="cultivo_description_label">Descripción del Cultivo</string>
+    <!-- Para el formulario de nueva actividad -->
+    <string name="actividad_form_title_edit">Editar Actividad</string>
+    <string name="actividad_form_submitbutton_text_update">Actualizar Actividad</string>
+    <string name="actividad_form_title">Datos para la nueva actividad</string>
+    <string name="actividad_form_tipo_actividad_label">Tipo de Actividad</string>
+    <string name="tipo_actividad_hint">Seleccione el tipo de actividad</string>
+    <string name="actividad_form_prioridad_label">Prioridad</string>
+    <string name="prioridad_actividad_hint">Seleccione la prioridad</string>
+    <string name="actividad_form_fecha_label">Fecha de la Actividad</string>
+    <string name="actividad_form_date_hint">dd/mm/aaaa</string>
+    <string name="actividad_form_estado_label">Estado de la Actividad</string>
+    <string name="estado_actividad_hint">Seleccione el estado</string>
+    <string name="actividad_form_descripcion_label">Descripción</string>
+    <string name="hint_descripcion_actividad_form">Ej: Riego profundo (Opcional)</string>
+    <string name="actividad_form_submitbutton_text">Guardar Actividad</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Para el formulario de nuevo cultivo -->
+    <string name="cultivo_form_title">Datos para el nuevo cultivo</string>
+    <string name="cultivo_form_name_label">Nombre del cultivo</string>
+    <string name="cultivo_form_tipo_label">Tipo de cultivo</string>
+    <string name="cultivo_form_fecha_inicio_label">Fecha de inicio del cultivo</string>
+    <string name="cultivo_form_fecha_fin_label">Fecha estimada de finalización</string>
+    <string name="cultivo_form_existencias_label">Existencias disponibles</string>
+    <string name="cultivo_form_descripcion_label">Notas del cultivo</string>
+    <string name="cultivo_name_hint">Nombre del cultivo</string>
+    <string name="tipo_cultivo_hint">Seleccione el tipo de cultivo</string>
+    <string name="fecha_de_inicio_cultivo_form_label">Fecha de inicio</string>
+    <string name="cultivo_form_date_hint"> dd/mm/aaaa</string>
+    <string name="descripcion_label_form">Descripción del cultivo</string>
+    <string name="existencias_iniciales_cultivo_form_label">Existencias iniciales</string>
+    <string name="cultivo_form_existencias_hint">Ej: 100</string>
+    <string name="cultivo_form_hint_existencias">Ej: Sembrio para venta</string>
+    <string name="cultivo_form_submitbutton_text">Enviar</string>
+    <string name="hint_descripcion_cultivo_form">Ej: Siembra para venta (Opcional)</string>
+    <string name="editar_cultivo_button_label">Editar Cultivo</string>
+    <string name="fecha_form_end_date_label">Fecha estimada de finalización</string>
+    <string name="end_date_hint_optional"> dd/mm/yyyy (opcional)</string>
+    <string name="eliminar_cultivo_button_label">Eliminar Cultivo</string>
+
+    <!-- For Activity Reminders Notifications -->
+    <string name="notification_title_activity_reminder">Recordatorio de Actividad</string>
+    <string name="notification_content_activity_reminder">La actividad %s de tipo %s para el cultivo %s está próxima a la fecha %s.</string>
+    <string name="notification_action_complete">Completar</string>
+    <string name="notification_action_in_progress">En Progreso</string>
+
 </resources>
